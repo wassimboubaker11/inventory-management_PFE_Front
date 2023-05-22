@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { DndDropEvent } from 'ngx-drag-drop';
+import { NgbModal, NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
+import Swal from 'sweetalert2';
 
-import { tasks } from './data';
+import { Article } from 'src/app/core/models/article';
+import { ArticleService } from 'src/app/core/services/article.service';
 
-import { Task } from './kanban.model';
 
 @Component({
   selector: 'app-kanban',
@@ -12,52 +13,90 @@ import { Task } from './kanban.model';
 })
 export class KanbanComponent implements OnInit {
 
-  completedTasks: Task[];
-  inprogressTasks: Task[];
-  todoTasks: Task[];
+ image:any
+
+ article:any;
+
+ searchQuery: string = '';
+
+ totalItems:any;
+ currentPage = 1;
+ pageSize = 5;
 
   // bread crumb items
   breadCrumbItems: Array<{}>;
 
-  constructor() { }
+  constructor(private modalService: NgbModal,private articleservice : ArticleService , config: NgbPaginationConfig) {  config.size = 'sm'; config.boundaryLinks = true; config.maxSize = 10;}
 
   ngOnInit(): void {
     this.breadCrumbItems = [{ label: 'Nazox' }, { label: 'Kanban Board', active: true }];
-
-    this._fetchData();
+    this.getallarticle();
+    
   }
-
-
-  /**
-   * on dragging task
-   * @param item item dragged
-   * @param list list from item dragged
-   */
-  onDragged(item: any, list: any[]) {
-    const index = list.indexOf(item);
-    list.splice(index, 1);
-  }
-
-  /**
-   * On task drop event
-   */
-  onDrop(event: DndDropEvent, filteredList?: any[], targetStatus?: string) {
-    if (filteredList && event.dropEffect === 'move') {
-      let index = event.index;
-
-      if (typeof index === 'undefined') {
-        index = filteredList.length;
-      }
-
-      filteredList.splice(index, 0, event.data);
+  searchDepots() {
+    if (this.searchQuery) {
+      this.article = this.article.filter((depot) => {
+        return (
+          depot.nom?.toLowerCase().includes(this.searchQuery.toLowerCase())  ||
+          depot.ref_article?.toString().includes(this.searchQuery.toLowerCase()) ||
+          depot.num_serie?.toLowerCase().includes(this.searchQuery.toLowerCase())
+        );
+      });
+    } else {
+      this.ngOnInit();
     }
   }
 
-  private _fetchData() {
-    // all tasks
-    this.inprogressTasks = tasks.filter(t => t.status === 'inprogress');
-    this.completedTasks = tasks.filter(t => t.status === 'completed');
-    this.todoTasks = tasks.filter(t => t.status === 'todo');
+ 
+  getallarticle(){
+    this.articleservice.getallarticle().subscribe(
+      responce=>{
+        this.article =responce
+        console.log(responce)
+        this.image=responce.picture
+        this.totalItems = responce.length;
+
+      },
+      err=>{
+        console.log(err)
+      }
+    )
   }
+
+  confirm(id:any) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You won\'t be able to revert this!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#34c38f',
+      cancelButtonColor: '#f46a6a',
+      confirmButtonText: 'Yes, delete it!'
+    }).then(result => {
+      if (result.value) {
+        
+          this.articleservice.deletearticle(id).subscribe(
+              
+            responce=>{
+              console.log(responce)
+              this.ngOnInit();
+              
+            },
+            err=>{
+              console.log(err)
+            }
+          )
+        
+        Swal.fire('Deleted!', 'company has been deleted.', 'success');
+        
+      }
+      
+    });
+  }
+
+ 
+ 
+
+  
 
 }

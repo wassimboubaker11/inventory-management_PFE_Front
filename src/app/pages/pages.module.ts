@@ -7,7 +7,7 @@ import { WidgetModule } from '../shared/widget/widget.module';
 
 import { PagesRoutingModule } from './pages-routing.module';
 
-import { NgbNavModule, NgbDropdownModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbNavModule, NgbDropdownModule, NgbTooltipModule , NgbPaginationModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { FullCalendarModule } from '@fullcalendar/angular';
@@ -29,6 +29,16 @@ import { ChartModule } from './chart/chart.module';
 import { FormModule } from './form/form.module';
 import { TablesModule } from './tables/tables.module';
 import { MapsModule } from './maps/maps.module';
+import { UiSwitchModule } from 'ngx-ui-switch';
+import { AddArticleComponent } from './kanban/add-article/add-article.component';
+import { EditArticleComponent } from './kanban/edit-article/edit-article.component';
+import { OptionComponent } from './option/option.component';
+import { UserComponent } from './user/user.component';
+import { ArticleByDepotComponent } from './chat/article-by-depot/article-by-depot.component';
+import { AddUserComponent } from './user/add-user/add-user.component';
+import { DetailsArticleComponent } from './kanban/details-article/details-article.component';
+
+
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -36,7 +46,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 };
 
 @NgModule({
-  declarations: [DashboardComponent, CalendarComponent, ChatComponent, KanbanComponent],
+  declarations: [DashboardComponent, CalendarComponent, ChatComponent, KanbanComponent, AddArticleComponent, EditArticleComponent, OptionComponent, UserComponent, ArticleByDepotComponent, AddUserComponent, DetailsArticleComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -59,7 +69,11 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     TablesModule,
     MapsModule,
     LeafletModule,
-    WidgetModule
+    WidgetModule,
+    UiSwitchModule,
+    NgbPaginationModule,
+    
+    NgbModule
   ],
   providers: [
     {

@@ -1,379 +1,186 @@
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+
 <div class="container-fluid">
-  <app-pagetitle title="Chat" [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
+  <app-pagetitle title="chat" [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
 
-  <div class="d-lg-flex mb-4">
-    <div class="chat-leftsidebar">
-      <div class="p-3 border-bottom">
-        <div class="media">
-          <div class="align-self-center mr-3">
-            <img src="assets/images/users/avatar-2.jpg" class="avatar-xs rounded-circle" alt="">
-          </div>
-          <div class="media-body">
-            <h5 class="font-size-15 mt-0 mb-1">Ricky Clark</h5>
-            <p class="text-muted mb-0"><i class="mdi mdi-circle text-success align-middle mr-1"></i> Active</p>
-          </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          
+			
+              
+              
 
-          <div>
-            <div class="dropdown chat-noti-dropdown" ngbDropdown>
-              <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="false" ngbDropdownToggle>
-                <i class="mdi mdi-dots-horizontal font-size-20"></i>
-              </button>
-              <div class="dropdown-menu dropdown-menu-right" ngbDropdownMenu>
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card-body border-bottom py-2">
-        <div class="search-box chat-search-box">
-          <div class="position-relative">
-            <input type="text" class="form-control" placeholder="Search...">
-            <i class="ri-search-line search-icon"></i>
-          </div>
-        </div>
-      </div>
+			<div class="col-md-13">
+				<div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
+					<div class="col-md-9">
+						<div class="form-inline float-md-right" >
+						  <div class="search-box ml-2">
+							<div class="position-relative">
+							  <input type="text" class="form-control rounded" placeholder="Search..." (input)="searchDepots()" [(ngModel)]="searchQuery">
+							  <i class="mdi mdi-magnify search-icon"></i>
+							</div>
+						  </div>
+						</div>
+					  </div>
+										
+					<div>
+						<a href="javascript:void(0);" class="btn btn-success mb-2" (click)="openModal(content)">
+						  <i class="mdi mdi-plus mr-2"></i> Add Inventory
+						</a>
+					  </div>
+					
+				</div>
+				
+			</div>
+          
 
-      <div class="chat-leftsidebar-nav">
-        <ul ngbNav #nav="ngbNav" [activeId]="1" class="nav-pills nav-justified">
-          <li [ngbNavItem]="1">
-            <a ngbNavLink>
-              <i class="ri-message-2-line font-size-20"></i>
-              <span class="mt-2 d-none d-sm-block">Chat</span>
-            </a>
-            <ng-template ngbNavContent>
-              <div>
-                <h5 class="font-size-14 px-3 mb-3">Recent</h5>
-                <perfect-scrollbar style="position: relative; height: 345px;">
-                  <ul class="list-unstyled chat-list">
-                    <li *ngFor="let chat of chatData">
-                      <a (click)="chatUsername(chat.name, chat.image, chat.status)">
-                        <div class="media">
-                          <div class="user-img online align-self-center mr-3" *ngIf="chat.image" [ngClass]="{'online': chat.status === 'online',
-                          'away': chat.status === 'intermediate'}">
-                            <img src="{{chat.image}}" class="rounded-circle avatar-xs" alt="">
-                            <span class="user-status"></span>
-                          </div>
-                          <div class="user-img mr-3" *ngIf="!chat.image" [ngClass]="{'online': chat.status === 'online',
-                          'away': chat.status === 'intermediate'}">
-                            <div class="avatar-xs align-self-center">
-                              <span
-                                class="avatar-title rounded-circle bg-light text-body">{{chat.name.charAt(0)}}</span>
-                              <span class="user-status"></span>
-                            </div>
-                          </div>
-                          <div class="media-body overflow-hidden">
-                            <h5 class="text-truncate font-size-14 mb-1">{{chat.name}}</h5>
-                            <p class="text-truncate mb-0">{{chat.message}}</p>
-                          </div>
-                          <div class="font-size-11">{{chat.time}}</div>
-                        </div>
-                      </a>
-                    </li>
-                  </ul>
-                </perfect-scrollbar>
-              </div>
-            </ng-template>
-          </li>
-          <li [ngbNavItem]="2">
-            <a ngbNavLink>
-              <i class="ri-group-line font-size-20"></i>
-              <span class="mt-2 d-none d-sm-block">Group</span>
-            </a>
-            <ng-template ngbNavContent>
-              <h5 class="font-size-14 px-3 mb-3">Group</h5>
-              <ul class="list-unstyled chat-list" data-simplebar style="max-height: 345px;">
-                <li>
-                  <a href="#">
-                    <div class="media align-items-center">
-                      <div class="avatar-xs mr-3">
-                        <span class="avatar-title rounded-circle bg-light text-body">
-                          G
-                        </span>
-                      </div>
+<section id="team" class="team_member section-padding" >
+	<div class="container"  >				
+		<div class="row text-center"  >
+			<div class="col-md-3 col-sm-6 col-xs-12 wow fadeInUp"  *ngFor="let depott of depots.slice((currentPage - 1) * 8, currentPage * 8)"  data-wow-duration="1s" data-wow-delay="0.1s" data-wow-offset="0">
+				<div class="our-team" >
+					<div class="team_img" >
+						<img src="assets/images/Wind.png" alt="team-image">
+						<ul class="social">
+							<li><a href="javascript:void(0);" ><i class="fa fa-trash" (click)="confirm(depott.iddepot)"></i></a></li>
+							<li><a href="javascript:void(0);" ><i class="fa fa-pencil" (click)="openModall(contentt , depott.iddepot)"></i></a></li>
+							<li><a href="javascript:void(0);" ><i class="fa fa-arrow-right" [routerLink]="['/chat/article', depott.iddepot]"></i></a></li>
+							
+						</ul>
+					</div>
 
-                      <div class="media-body">
-                        <h5 class="font-size-14 mb-0">General</h5>
-                      </div>
-                    </div>
-                  </a>
-                </li>
+					<div class="team-content" >
+						<h3 class="title" >{{depott.nom}}</h3>
+						<span class="post" > {{depott.adresse}} </span> <br>
+						<a>Number : {{depott.numero}}</a>
+						<div>{{depott.datecreation}}</div>
+					</div>
+					
+				
+				</div>
+			</div><!--- END COL -->																
+		</div><!--- END ROW -->
+	</div><!--- END CONTAINER -->		
+	<div class="col-sm-12 col-md-16">
+		<div class="text-md-right float-md-right pagination-rounded">
+			<ngb-pagination [collectionSize]="depots.length" [(page)]="currentPage" [pageSize]="8" [rotate]="true" [maxSize]="5" [boundaryLinks]="true" [ellipses]="true"></ngb-pagination>
+		</div>
+	  </div>
+</section>
 
-                <li>
-                  <a href="#">
-                    <div class="media align-items-center">
-                      <div class="avatar-xs mr-3">
-                        <span class="avatar-title rounded-circle bg-light text-body">
-                          R
-                        </span>
-                      </div>
 
-                      <div class="media-body">
-                        <h5 class="font-size-14 mb-0">Reporting</h5>
-                      </div>
-                    </div>
-                  </a>
-                </li>
-
-                <li>
-                  <a href="#">
-                    <div class="media align-items-center">
-                      <div class="avatar-xs mr-3">
-                        <span class="avatar-title rounded-circle bg-light text-body">
-                          M
-                        </span>
-                      </div>
-
-                      <div class="media-body">
-                        <h5 class="font-size-14 mb-0">Meeting</h5>
-                      </div>
-                    </div>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <div class="media align-items-center">
-                      <div class="avatar-xs mr-3">
-                        <span class="avatar-title rounded-circle bg-light text-body">
-                          A
-                        </span>
-                      </div>
-
-                      <div class="media-body">
-                        <h5 class="font-size-14 mb-0">Project A</h5>
-                      </div>
-                    </div>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <div class="media align-items-center">
-                      <div class="avatar-xs mr-3">
-                        <span class="avatar-title rounded-circle bg-light text-body">
-                          B
-                        </span>
-                      </div>
-
-                      <div class="media-body">
-                        <h5 class="font-size-14 mb-0">Project B</h5>
-                      </div>
-                    </div>
-                  </a>
-                </li>
-              </ul>
-            </ng-template>
-
-          </li>
-          <li [ngbNavItem]="3">
-            <a ngbNavLink>
-              <i class="ri-contacts-book-2-line font-size-20"></i>
-              <span class="mt-2 d-none d-sm-block">Contacts</span>
-            </a>
-            <ng-template ngbNavContent>
-              <h5 class="font-size-14 px-3 mb-3">Contact</h5>
-
-              <perfect-scrollbar style="height: 345px;">
-                <div>
-                  <div class="p-3">
-                    A
-                  </div>
-
-                  <ul class="list-unstyled chat-list">
-                    <li>
-                      <a href="#">
-                        <h5 class="font-size-14 mb-0">Adam Miller</h5>
-                      </a>
-                    </li>
-
-                    <li>
-                      <a href="#">
-                        <h5 class="font-size-14 mb-0">Alfonso Fisher</h5>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-
-                <div class="mt-4">
-                  <div class="p-3">
-                    B
-                  </div>
-
-                  <ul class="list-unstyled chat-list">
-                    <li>
-                      <a href="#">
-                        <h5 class="font-size-14 mb-0">Bonnie Harney</h5>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-
-                <div class="mt-4">
-                  <div class="p-3">
-                    C
-                  </div>
-
-                  <ul class="list-unstyled chat-list">
-                    <li>
-                      <a href="#">
-                        <h5 class="font-size-14 mb-0">Charles Brown</h5>
-                      </a>
-                      <a href="#">
-                        <h5 class="font-size-14 mb-0">Carmella Jones</h5>
-                      </a>
-                      <a href="#">
-                        <h5 class="font-size-14 mb-0">Carrie Williams</h5>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-
-                <div class="mt-4">
-                  <div class="p-3">
-                    D
-                  </div>
-
-                  <ul class="list-unstyled chat-list">
-                    <li>
-                      <a href="#">
-                        <h5 class="font-size-14 mb-0">Dolores Minter</h5>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </perfect-scrollbar>
-            </ng-template>
-          </li>
-        </ul>
-        <div [ngbNavOutlet]="nav" class="py-4"></div>
-      </div>
-    </div>
-
-    <div class="w-100 user-chat mt-4 mt-sm-0">
-      <div class="p-3 px-lg-4 user-chat-border">
-        <div class="row">
-          <div class="col-md-4 col-6">
-            <h5 class="font-size-15 mb-1 text-truncate">{{username}}</h5>
-            <p class="text-muted text-truncate mb-0"><i class="mdi mdi-circle text-success align-middle mr-1" [ngClass]="{'text-success': status === 'online',
-                'text-warning': status === 'intermediate'}"></i>
-              {{status}}</p>
-          </div>
-          <div class="col-md-8 col-6">
-            <ul class="list-inline user-chat-nav text-right mb-0">
-              <li class="list-inline-item d-inline-block d-sm-none">
-                <div class="dropdown" ngbDropdown>
-                  <button class="btn nav-btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false" ngbDropdownToggle>
-                    <i class="mdi mdi-magnify"></i>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-right dropdown-menu-md" ngbDropdownMenu>
-                    <form class="p-2">
-                      <div class="search-box">
-                        <div class="position-relative">
-                          <input type="text" class="form-control rounded" placeholder="Search...">
-                          <i class="mdi mdi-magnify search-icon"></i>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </li>
-              <li class="d-none d-sm-inline-block">
-                <div class="search-box mr-2">
-                  <div class="position-relative">
-                    <input type="text" class="form-control" placeholder="Search...">
-                    <i class="mdi mdi-magnify search-icon"></i>
-                  </div>
-                </div>
-              </li>
-              <li class="list-inline-item m-0 d-none d-sm-inline-block">
-                <div class="dropdown" ngbDropdown>
-                  <button class="btn nav-btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false" ngbDropdownToggle>
-                    <i class="mdi mdi-cog"></i>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-right" ngbDropdownMenu>
-                    <a class="dropdown-item" href="#">View Profile</a>
-                    <a class="dropdown-item" href="#">Clear chat</a>
-                    <a class="dropdown-item" href="#">Muted</a>
-                    <a class="dropdown-item" href="#">Delete</a>
-                  </div>
-                </div>
-              </li>
-
-              <li class="list-inline-item">
-                <div class="dropdown" ngbDropdown>
-                  <button class="btn nav-btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false" ngbDropdownToggle>
-                    <i class="mdi mdi-dots-horizontal"></i>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-right" ngbDropdownMenu>
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else</a>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <div class="px-lg-2">
-        <div class="chat-conversation p-3">
-          <perfect-scrollbar style="height: 450px;">
-            <ul class="list-unstyled mb-0 pr-3" *ngFor="let data of chatMessagesData"
-              [ngClass]="{ 'right': data.align === 'right' }">
-              <li *ngIf="!data.text">
-                <div class="conversation-list">
-                  <div class="chat-avatar">
-                    <img src="{{data.image}}" alt="">
-                  </div>
-                  <div class="ctext-wrap">
-                    <div class="conversation-name">{{data.name}}</div>
-                    <div class="ctext-wrap-content">
-                      <p class="mb-0">
-                        {{data.message}}
-                      </p>
-                    </div>
-                    <p class="chat-time mb-0"><i class="mdi mdi-clock-outline align-middle mr-1"></i> {{data.time}}</p>
-                  </div>
-                </div>
-              </li>
-              <li *ngIf="data.text">
-                <div class="chat-day-title">
-                  <span class="title">{{data.text}}</span>
-                </div>
-              </li>
-            </ul>
-          </perfect-scrollbar>
-        </div>
-      </div>
-      <div class="px-lg-3">
-        <div class="p-3 chat-input-section">
-          <form (ngSubmit)="messageSave()" [formGroup]="formData" class="row">
-
-            <div class="col">
-              <div class="position-relative">
-                <input type="text" class="form-control chat-input" placeholder="Enter Message..."
-                  formControlName="message" [ngClass]="{'is-invalid': chatSubmit && form.message.errors}">
-                <div *ngIf="chatSubmit && form.message.errors" class="invalid-feedback">
-                  <span *ngIf="form.message.errors.required">This value is required.</span>
-                </div>
-              </div>
-            </div>
-            <div class="col-auto">
-              <button type="submit" class="btn btn-primary chat-send w-md waves-effect waves-light"><span
-                  class="d-none d-sm-inline-block mr-2">Send</span> <i class="mdi mdi-send"></i></button>
-            </div>
-
-          </form>
-
+          
         </div>
       </div>
     </div>
   </div>
-  <!-- end row -->
 </div>
+
+
+
+
+<!-- Contacts model  -->
+<ng-template #content role="document" let-modal="close">
+	<div class="modal-header">
+	  <h5 class="modal-title">Add Inventory</h5>
+	  <button type="button" class="close" aria-label="Close" (click)="modal('Cross click')">
+		<span aria-hidden="true">&times;</span>
+	  </button>
+	</div>
+	<div class="modal-body p-3">
+	  <div class="text-left">
+		<form (ngSubmit)="saveDepot()" >
+  
+		  <div class="form">
+			<label for="name">Name</label>
+			<input class="form-control" type="text" [(ngModel)]="depot.nom" name="nom" id="name" placeholder="Enter name">
+			
+		  </div>
+  
+		  <div class="form">
+			<label for="address"> address</label>
+			<input class="form-control" [(ngModel)]="depot.adresse" name="adresse" placeholder="Enter address" >
+			
+		  </div>
+  
+		  <div class="form">
+			<label>Number </label>
+			<input class="form-control" type="number" [(ngModel)]="depot.numero" name="numero" placeholder="Enter number">
+			
+		  </div>
+  
+
+  
+		  <div class="form-group">
+			<label>Date </label>
+			<input class="form-control" [(ngModel)]="depot.datecreation" name="datecreation" type="date"  >
+		  </div>
+
+		  
+  
+		  <div class="text-right">
+			<button type="submit" class="btn btn-success">Save</button>
+			<button type="button" class="btn btn-danger ml-1" (click)="modal('close click')" >Cancel</button>
+		  </div>
+		</form>
+	  </div>
+	</div>
+  </ng-template>
+
+
+
+  <!-- Contacts model  -->
+<ng-template #contentt role="document" let-modal="close">
+	<div class="modal-header">
+	  <h5 class="modal-title">Update Inventory</h5>
+	  <button type="button" class="close" aria-label="Close" (click)="modal('Cross click')">
+		<span aria-hidden="true">&times;</span>
+	  </button>
+	</div>
+	<div class="modal-body p-3">
+	  <div class="text-left">
+		<form (ngSubmit)="updateDepot()" >
+  
+		  <div class="form">
+			<label for="name">Name</label>
+			<input class="form-control" type="text" [(ngModel)]="depot.nom" name="nom" id="name" placeholder="Enter name" 
+			  >
+			
+		  </div>
+  
+		  <div class="form">
+			<label for="address"> address</label>
+			<input class="form-control" [(ngModel)]="depot.adresse" name="adresse" placeholder="Enter address" >
+			
+		  </div>
+  
+		  <div class="form">
+			<label>Number </label>
+			<input class="form-control" type="number" [(ngModel)]="depot.numero" name="numero" placeholder="Enter number">
+			
+		  </div>
+  
+
+  
+		  <div class="form-group">
+			<label>Date </label>
+			<input class="form-control" [(ngModel)]="depot.datecreation" name="datecreation" type="date"  >
+		  </div>
+
+		  
+  
+		  <div class="text-right">
+			<button type="submit" class="btn btn-success">Save</button>
+			<button type="button" class="btn btn-danger ml-1" (click)="modal('close click')" >Cancel</button>
+		  </div>
+		</form>
+	  </div>
+	</div>
+  </ng-template>
+  
+
+
+ 

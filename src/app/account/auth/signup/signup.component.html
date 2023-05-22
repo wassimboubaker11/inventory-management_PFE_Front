@@ -11,41 +11,91 @@
               <div class="col-lg-9">
                 <div>
                   <div class="text-center">
-                    <div>
+                    <!-- <div>
                       <a routerLink="" class="logo"><img src="assets/images/logo-dark.png" height="20" alt="logo"></a>
-                    </div>
+                    </div> -->
 
                     <h4 class="font-size-18 mt-4">Register account</h4>
-                    <p class="text-muted">Get your free Nazox account now.</p>
+                    <!-- <p class="text-muted">Get your free Nazox account now.</p> -->
                   </div>
 
                   <div class="p-2 mt-5">
                     <form class="form-horizontal" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-                      <ngb-alert type="success" *ngIf="successmsg" [dismissible]="false">Registeration successfull.
+                      <!-- <ngb-alert type="success" *ngIf="successmsg" [dismissible]="false">Registeration successfull.
                       </ngb-alert>
-                      <ngb-alert type="danger" *ngIf="error" [dismissible]="false">{{ error }}</ngb-alert>
+                      <ngb-alert type="danger" *ngIf="error" [dismissible]="false">{{ error }}</ngb-alert> -->
 
                       <div class="form-group auth-form-group-custom mb-4">
                         <i class="ri-user-2-line auti-custom-input-icon"></i>
                         <label for="username">Username</label>
-                        <input type="text" formControlName="username" class="form-control"
-                          [ngClass]="{ 'is-invalid': submitted && f.username.errors }" id="username"
-                          placeholder="Enter username">
-                        <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                        <input type="text" [(ngModel)]="admin.name" formControlName="username" class="form-control"
+                           id="username"  placeholder="Enter username">
+                        <!-- <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
                           <div *ngIf="f.username.errors.required">Userame is required</div>
-                        </div>
+                        </div> -->
                       </div>
+
+            
+
                       <div class="form-group auth-form-group-custom mb-4">
                         <i class="ri-mail-line auti-custom-input-icon"></i>
                         <label for="email">Email</label>
-                        <input type="email" formControlName="email" class="form-control"
-                          [ngClass]="{ 'is-invalid': submitted && f.email.errors }" id="email" placeholder="Email">
-                        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                        <input type="email" [(ngModel)]="admin.email" formControlName="email" class="form-control"
+                           id="email" placeholder="Email">
+                        <!-- <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
                           <div *ngIf="f.email.errors.required">Email is required</div>
                           <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
-                        </div>
+                        </div> -->
                       </div>
+
                       <div class="form-group auth-form-group-custom mb-4">
+                        <i class="ri-phone-line auti-custom-input-icon"></i>
+                        <label for="tel">Phone</label>
+                        <input type="text" [(ngModel)]="admin.tel" formControlName="tel" class="form-control"
+                           id="tel" placeholder="Enter number">
+                        <!-- <div *ngIf="submitted && f.tel.errors" class="invalid-feedback">
+                          <div *ngIf="f.tel.errors.required">Phone is required</div>
+                        </div> -->
+                      </div>
+
+                      <div class="form-group auth-form-group-custom mb-4">
+                        <i class="ri-user-location-line auti-custom-input-icon"></i>
+                        <label for="adresse">Location</label>
+                        <input type="text" [(ngModel)]="admin.adresse" formControlName="adresse" class="form-control"
+                           id="adresse" placeholder="Enter adresse">
+                        <!-- <div *ngIf="submitted && f.adresse.errors" class="invalid-feedback">
+                          <div *ngIf="f.adresse.errors.required">location is required</div>
+                        </div> -->
+                      </div>
+
+                      <div class="form-group auth-form-group-custom mb-4">
+                        <i class="ri-pages-fill auti-custom-input-icon"></i>
+                        <label for="site">WebSite</label>
+                        <input type="text" [(ngModel)]="admin.site" formControlName="site" class="form-control"
+                           id="site"
+                          placeholder="Enter site">
+                        <!-- <div *ngIf="submitted && f.site.errors" class="invalid-feedback">
+                          <div *ngIf="f.site.errors.required">webSite is required</div>
+                        </div> -->
+                      </div>
+
+                    
+                     
+                      <div class="form-group auth-form-group-custom mb-4">
+                        <i class="ri-upload-line auti-custom-input-icon"></i>
+                        <label for="fileUpload">Upload Logo</label>
+                        <input type="file" (change)="selectlogo($event)" formControlName="fileUpload" class="form-control"
+                           id="fileUpload">
+                        <!-- <div *ngIf="submitted && f.fileUpload.errors" class="invalid-feedback">
+                          <div *ngIf="f.fileUpload.errors.required">File upload is required</div>
+                        </div> -->
+                       
+                      </div>
+                      
+
+  
+
+                      <!-- <div class="form-group auth-form-group-custom mb-4">
                         <i class="ri-lock-2-line auti-custom-input-icon"></i>
                         <label for="password">Password</label>
                         <input type="password" formControlName="password" class="form-control"
@@ -54,23 +104,23 @@
                         <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
                           <div *ngIf="f.password.errors.required">Password is required</div>
                         </div>
-                      </div>
+                      </div> -->
 
                       <div class="text-center">
                         <button class="btn btn-primary w-md waves-effect waves-light" type="submit">Register</button>
                       </div>
-
+<!-- 
                       <div class="mt-4 text-center">
                         <p class="mb-0">By registering you agree to the Nazox <a href="#" class="text-primary">Terms of
                             Use</a></p>
-                      </div>
+                      </div> -->
                     </form>
                   </div>
 
                   <div class="mt-5 text-center">
                     <p>Already have an account ? <a routerLink="/account/login" class="font-weight-medium text-primary">
                         Login</a> </p>
-                    <p>© 2020 Nazox. Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesdesign</p>
+                    <!-- <p>© 2020 Nazox. Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesdesign</p> -->
                   </div>
                 </div>
               </div>

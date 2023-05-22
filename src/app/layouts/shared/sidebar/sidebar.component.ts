@@ -7,6 +7,7 @@ import { EventService } from '../../../core/services/event.service';
 
 import { MENU } from './menu';
 import { MenuItem } from './menu.model';
+import { AuthenticationService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -14,6 +15,7 @@ import { MenuItem } from './menu.model';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit, AfterViewInit {
+  userRole: string;
 
   menu: any;
 
@@ -21,7 +23,20 @@ export class SidebarComponent implements OnInit, AfterViewInit {
 
   @ViewChild('sideMenu') sideMenu: ElementRef;
 
-  constructor(private eventService: EventService, private router: Router) {
+  checkUserRole(item: MenuItem): boolean {
+    if (!item.userRole) {
+      return true; // If UserRole is not defined, allow all users to see the menu item
+    }
+
+    // Check if the current user's role is included in the UserRole array
+    return item.userRole.includes(this.userRole);
+  }
+
+ 
+
+  constructor(private eventService: EventService, private router: Router, private authservice:AuthenticationService) {
+    this.userRole = authservice.getUserDATAFromToken();
+    
     router.events.forEach((event) => {
       if (event instanceof NavigationEnd) {
         this._activateMenuDropdown();

@@ -6,19 +6,32 @@ import { User } from '../models/auth.models';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
+
+
+
 @Injectable({ providedIn: 'root' })
 
 export class AuthenticationService {
 
-    user: User;
+    user: any;
+
     admin:any;
 
     url ='http://127.0.0.1:8081/api/v1/auth/';
 
-
+    
 
 
     constructor( private http : HttpClient , private router : Router) { }
+
+    getUserDATAFromToken(){
+      let token = localStorage.getItem('token');
+      if(token){
+        let data = JSON.parse(window.atob(token.split('.')[1]))
+        return data.Role;
+      }
+    }
+    
 
     isLoggedIn(){
         let token = localStorage.getItem('token');

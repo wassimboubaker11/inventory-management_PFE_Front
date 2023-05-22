@@ -354,11 +354,17 @@
         </div>
       </div>
 
+      
+      
+      
+
       <div class="dropdown d-inline-block user-dropdown" ngbDropdown>
         <button type="button" ngbDropdownToggle class="btn header-item waves-effect" id="page-header-user-dropdown"
           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <img class="rounded-circle header-profile-user" src="assets/images/users/avatar-2.jpg" alt="Header Avatar">
-          <span class="d-none d-xl-inline-block ml-1">Kevin</span>
+          <img class="rounded-circle header-profile-user" [src]="ta5tarphoto" alt="image">
+          <span class="d-none d-xl-inline-block ml-1" *ngIf="role == 'ADMIN'">{{admin?.name}}</span>
+          <span class="d-none d-xl-inline-block ml-1" *ngIf="role == 'USER'">{{gestionaire?.name}}</span>
+          <span class="d-none d-xl-inline-block ml-1" *ngIf="role == 'SUPER_ADMIN'">Wind Consulting</span>
           <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
         </button>
 
@@ -380,12 +386,12 @@
         </div>
       </div>
 
-      <div class="dropdown d-inline-block">
+      <!-- <div class="dropdown d-inline-block">
         <button type="button" class="btn header-item noti-icon right-bar-toggle waves-effect"
           (click)="toggleRightSidebar()">
           <i class="ri-settings-2-line"></i>
         </button>
-      </div>
+      </div> -->
 
     </div>
   </div>

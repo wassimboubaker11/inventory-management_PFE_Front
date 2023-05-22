@@ -5,21 +5,37 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { ChatComponent } from './chat/chat.component';
 import { KanbanComponent } from './kanban/kanban.component';
+import { AddArticleComponent } from './kanban/add-article/add-article.component';
+import { EditArticleComponent } from './kanban/edit-article/edit-article.component';
+import { OptionComponent } from './option/option.component';
+import { UserComponent } from './user/user.component';
+import { ArticleByDepotComponent } from './chat/article-by-depot/article-by-depot.component';
+import { AddUserComponent } from './user/add-user/add-user.component';
+import { DetailsArticleComponent } from './kanban/details-article/details-article.component';
+import { AuthGuard } from '../core/guards/auth.guard';
 
 const routes: Routes = [
     { path: '', component: DashboardComponent },
     { path: 'calendar', component: CalendarComponent },
     { path: 'chat', component: ChatComponent },
+    { path: 'chat/article/:id', component: ArticleByDepotComponent },
     { path: 'kanban-board', component: KanbanComponent },
-    { path: 'ecommerce', loadChildren: () => import('./ecommerce/ecommerce.module').then(m => m.EcommerceModule) },
-    { path: 'email', loadChildren: () => import('./email/email.module').then(m => m.EmailModule) },
-    { path: 'pages', loadChildren: () => import('./utility/utility.module').then(m => m.UtilityModule) },
-    { path: 'ui', loadChildren: () => import('./ui/ui.module').then(m => m.UIModule) },
-    { path: 'icons', loadChildren: () => import('./icons/icons.module').then(m => m.IconsModule) },
-    { path: 'charts', loadChildren: () => import('./chart/chart.module').then(m => m.ChartModule) },
-    { path: 'form', loadChildren: () => import('./form/form.module').then(m => m.FormModule) },
-    { path: 'tables', loadChildren: () => import('./tables/tables.module').then(m => m.TablesModule) },
-    { path: 'maps', loadChildren: () => import('./maps/maps.module').then(m => m.MapsModule) },
+    {path:  'Kanban-board/addarticle' , component:AddArticleComponent},
+    {path:  'Kanban-board/editarticle/:id' , component:EditArticleComponent},
+    {path:  'Kanban-board/detailsarticle/:id' , component:DetailsArticleComponent},
+    {path:  'option' , component:OptionComponent},
+    {path:  'user' , component:UserComponent},
+    {path:  'user/adduser' , component:AddUserComponent},
+    { path: 'ecommerce', loadChildren: () => import('./ecommerce/ecommerce.module').then(m => m.EcommerceModule) , canActivate: [AuthGuard]},
+    { path: 'email', loadChildren: () => import('./email/email.module').then(m => m.EmailModule) , canActivate: [AuthGuard]},
+    { path: 'pages', loadChildren: () => import('./utility/utility.module').then(m => m.UtilityModule) , canActivate: [AuthGuard]},
+    { path: 'ui', loadChildren: () => import('./ui/ui.module').then(m => m.UIModule), canActivate: [AuthGuard] },
+    { path: 'icons', loadChildren: () => import('./icons/icons.module').then(m => m.IconsModule), canActivate: [AuthGuard] },
+    { path: 'charts', loadChildren: () => import('./chart/chart.module').then(m => m.ChartModule) , canActivate: [AuthGuard]},
+    { path: 'form', loadChildren: () => import('./form/form.module').then(m => m.FormModule), canActivate: [AuthGuard] },
+    { path: 'tables', loadChildren: () => import('./tables/tables.module').then(m => m.TablesModule), canActivate: [AuthGuard] },
+    { path: 'maps', loadChildren: () => import('./maps/maps.module').then(m => m.MapsModule), canActivate: [AuthGuard] },
+    { path: 'tier',loadChildren:() => import('./client-founisseur/client-founisseur.module').then(m=>m.ClientFounisseurModule), canActivate: [AuthGuard]}
 ];
 
 @NgModule({

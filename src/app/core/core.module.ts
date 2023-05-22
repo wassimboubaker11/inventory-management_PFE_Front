@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { VariantComponent } from './services/variant/variant.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [VariantComponent],
   imports: [
     CommonModule
   ]

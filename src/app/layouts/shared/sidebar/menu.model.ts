@@ -1,3 +1,5 @@
+
+
 export interface MenuItem {
     id?: number;
     label?: string;
@@ -8,4 +10,6 @@ export interface MenuItem {
     badge?: any;
     parentId?: number;
     isLayout?: boolean;
+    userRole?:String[];
+    
 }

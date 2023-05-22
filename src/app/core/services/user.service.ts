@@ -14,4 +14,9 @@ export class UserProfileService {
     register(user: User) {
         return this.http.post(`/users/register`, user);
     }
+
+    getuserbyemailandrole(email:any , role:any){
+        return this.http.get<any>("http://localhost:8081/api/v1/getuserbyemailandrole/" + email +"/"+role);
+    }
+   
 }

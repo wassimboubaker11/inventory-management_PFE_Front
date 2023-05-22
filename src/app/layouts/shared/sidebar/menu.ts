@@ -1,11 +1,16 @@
 import { MenuItem } from './menu.model';
 
+
 export const MENU: MenuItem[] = [
     {
         id: 1,
         label: 'MENUITEMS.MENU.TEXT',
-        isTitle: true
+        isTitle: true,
+        userRole: ['USER' , 'ADMIN' ] 
+    
+
     },
+    
     {
         id: 2,
         label: 'MENUITEMS.DASHBOARDS.TEXT',
@@ -14,24 +19,75 @@ export const MENU: MenuItem[] = [
             variant: 'success',
             text: 'MENUITEMS.DASHBOARDS.BADGE',
         },
-        link: '/'
+        link: '/',
+        userRole: ['USER' , 'ADMIN' ] 
+        
     },
     {
         id: 3,
         label: 'MENUITEMS.CALENDAR.TEXT',
         icon: 'ri-calendar-2-line',
-        link: '/calendar'
+        link: '/calendar',
+        userRole: ['SUPER_ADMIN' ] 
     },
+
+
     {
         id: 4,
         label: 'MENUITEMS.CHAT.TEXT',
-        icon: 'ri-chat-1-line',
-        link: '/chat'
+        icon: ' ri-home-3-line',
+        link: '/chat',
+        userRole: ['USER' , 'ADMIN' ] 
+    },
+
+    {
+        id: 70,
+        label: 'Option',
+        icon: 'ri-list-check',
+        link: '/option',
+        userRole: ['USER' , 'ADMIN' ] 
+    },
+
+   
+    {
+        id: 15,
+        label: 'MENUITEMS.KANBAN.TEXT',
+        icon: 'ri-artboard-2-line',
+        link: '/kanban-board',
+        userRole: ['USER' , 'ADMIN' ] 
+    },
+    {
+        id: 71,
+        label: 'User',
+        icon: ' ri-team-line',
+        link: '/user',
+        userRole: [ 'ADMIN' ] 
+    },
+    {
+        id: 72,
+        label: 'Clients / Fornisseurs',
+        icon: 'ri-group-line',
+        userRole: ['USER' , 'ADMIN' ],
+        subItems: [
+            {
+                id: 1,
+                label: 'List Client',
+                link: '/tier/client',
+                parentId: 72
+            },
+            {
+                id: 2,
+                label: 'List Founisseur',
+                link: '/tier/founisseur',
+                parentId: 72
+            },
+        ]
     },
     {
         id: 5,
         label: 'MENUITEMS.ECOMMERCE.TEXT',
         icon: 'ri-store-2-line',
+        userRole: ['USER' , 'ADMIN' ],
         subItems: [
             {
                 id: 6,
@@ -81,6 +137,7 @@ export const MENU: MenuItem[] = [
         id: 14,
         label: 'MENUITEMS.EMAIL.TEXT',
         icon: 'ri-mail-send-line',
+        userRole: ['USER' , 'ADMIN' ],
         subItems: [
             {
                 id: 15,
@@ -96,12 +153,7 @@ export const MENU: MenuItem[] = [
             }
         ]
     },
-    {
-        id: 15,
-        label: 'MENUITEMS.KANBAN.TEXT',
-        icon: 'ri-artboard-2-line',
-        link: '/kanban-board'
-    },
+   
     {
         id: 16,
         isLayout: true
@@ -109,12 +161,14 @@ export const MENU: MenuItem[] = [
     {
         id: 17,
         label: 'MENUITEMS.PAGES.TEXT',
-        isTitle: true
+        isTitle: true ,
+        userRole: ['USER' , 'ADMIN' ] 
     },
     {
         id: 18,
         label: 'MENUITEMS.AUTHENTICATION.TEXT',
         icon: 'ri-account-circle-line',
+        userRole: ['USER' , 'ADMIN' ],
         subItems: [
             {
                 id: 19,
@@ -146,6 +200,7 @@ export const MENU: MenuItem[] = [
         id: 23,
         label: 'MENUITEMS.UTILITY.TEXT',
         icon: 'ri-profile-line',
+        userRole: ['USER' , 'ADMIN' ],
         subItems: [
             {
                 id: 24,
@@ -200,12 +255,14 @@ export const MENU: MenuItem[] = [
     {
         id: 32,
         label: 'MENUITEMS.COMPONENTS.TEXT',
-        isTitle: true
+        isTitle: true ,
+        userRole: ['USER' , 'ADMIN' ] 
     },
     {
         id: 33,
         label: 'MENUITEMS.UIELEMENTS.TEXT',
         icon: 'ri-pencil-ruler-2-line',
+        userRole: ['USER' , 'ADMIN' ],
         subItems: [
             {
                 id: 34,
@@ -303,6 +360,9 @@ export const MENU: MenuItem[] = [
         id: 49,
         label: 'MENUITEMS.FORMS.TEXT',
         icon: 'ri-eraser-fill',
+
+       userRole: ['USER' , 'ADMIN' ] ,
+
         badge: {
             variant: 'danger',
             text: '6'
@@ -356,6 +416,9 @@ export const MENU: MenuItem[] = [
         id: 57,
         label: 'MENUITEMS.TABLES.TEXT',
         icon: 'ri-table-2',
+
+        userRole: ['USER' , 'ADMIN' ],
+
         subItems: [
             {
                 id: 58,
@@ -375,6 +438,10 @@ export const MENU: MenuItem[] = [
         id: 60,
         label: 'MENUITEMS.CHARTS.TEXT',
         icon: 'ri-bar-chart-line',
+
+        
+                userRole: ['USER' , 'ADMIN' ] ,
+    
         subItems: [
             {
                 id: 61,
@@ -400,6 +467,9 @@ export const MENU: MenuItem[] = [
         id: 63,
         label: 'MENUITEMS.ICONS.TEXT',
         icon: 'ri-brush-line',
+
+        userRole: ['USER' , 'ADMIN' ] ,
+
         subItems: [
             {
                 id: 64,
@@ -431,6 +501,9 @@ export const MENU: MenuItem[] = [
         id: 68,
         label: 'MENUITEMS.MAPS.TEXT',
         icon: 'ri-map-pin-line',
+        
+                userRole: ['USER' , 'ADMIN' ] ,
+
         subItems: [
             {
                 id: 69,
@@ -450,6 +523,9 @@ export const MENU: MenuItem[] = [
         id: 69,
         label: 'MENUITEMS.MULTILEVEL.TEXT',
         icon: 'ri-share-line',
+
+        userRole: ['USER' , 'ADMIN' ] ,
+
         subItems: [
             {
                 id: 70,

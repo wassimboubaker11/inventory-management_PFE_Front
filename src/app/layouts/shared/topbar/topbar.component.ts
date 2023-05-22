@@ -7,6 +7,9 @@ import { AuthenticationService } from '../../../core/services/auth.service';
 import { AuthfakeauthenticationService } from '../../../core/services/authfake.service';
 import { LanguageService } from '../../../core/services/language.service';
 import { environment } from '../../../../environments/environment';
+import { AdminService } from 'src/app/core/services/admin.service';
+import { GestionaireService } from 'src/app/core/services/gestionaire.service';
+import { User } from 'src/app/core/models/auth.models';
 
 @Component({
   selector: 'app-topbar',
@@ -14,6 +17,13 @@ import { environment } from '../../../../environments/environment';
   styleUrls: ['./topbar.component.scss']
 })
 export class TopbarComponent implements OnInit {
+
+  user:any;
+  role:any
+  admin:any
+  picture:any
+  gestionaire:any
+  ta5tarphoto:String;
 
   element: any;
   configData: any;
@@ -31,7 +41,7 @@ export class TopbarComponent implements OnInit {
   ];
 
   // tslint:disable-next-line: max-line-length
-  constructor(@Inject(DOCUMENT) private document: any, private router: Router, private authService: AuthenticationService, private authFackservice: AuthfakeauthenticationService, public languageService: LanguageService, public cookiesService: CookieService) { }
+  constructor(private adminservice:AdminService , private gestionaireservice:GestionaireService, @Inject(DOCUMENT) private document: any, private router: Router, private authService: AuthenticationService, private authFackservice: AuthfakeauthenticationService, public languageService: LanguageService, public cookiesService: CookieService) { }
 
   @Output() mobileMenuButtonClicked = new EventEmitter();
   @Output() settingsButtonClicked = new EventEmitter();
@@ -51,7 +61,88 @@ export class TopbarComponent implements OnInit {
     } else {
       this.flagvalue = val.map(element => element.flag);
     }
+
+  
+
+
+    this.getUserDATAFromToken();
+    
+    //console.log(this.role)
+    this.afficherimage()
+    //console.log(this.picture)
+
+      
   }
+
+
+
+  getUserDATAFromToken(){
+    let token = localStorage.getItem('token');
+    if(token){
+      let data = JSON.parse(window.atob(token.split('.')[1]))
+      this.user=data
+      this.role=this.user.Role
+      return data;
+      
+    }  }
+
+    afficherimage(){
+      if(this.user.Role == 'ADMIN'){
+        this.adminservice.getadminbyemail(this.user.sub).subscribe(
+          responce=>{
+            this.admin=responce
+            this.picture=this.admin.logo
+           // console.log(this.admin);
+            this.ta5tarphoto="http://localhost:8081/api/v1/file/files/" +this.picture;
+          },
+          err=>{
+            console.log(err)
+          }
+        )
+      }else{
+        if(this.user.Role =='USER'){
+          this.gestionaireservice.getgestionairebyemail(this.user.sub).subscribe(
+            responce=>{
+              this.gestionaire=responce
+              this.picture=responce.photo
+              //console.log(responce);
+              this.ta5tarphoto="http://localhost:8081/api/v1/file/files/" +this.picture;
+            },
+            err=>{
+              console.log(err)
+            }
+          )
+        }else if(this.user.Role =='SUPER_ADMIN'){
+            this.ta5tarphoto="assets/images/1580806939517.jpg";
+          
+        }
+      }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   /**
    * Toggle the menu bar when having mobile screen

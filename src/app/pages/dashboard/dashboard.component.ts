@@ -22,6 +22,8 @@ export class DashboardComponent implements OnInit {
   transactions: Transaction[];
   statData: Stat[];
 
+ 
+
   constructor(public formBuilder: FormBuilder) {
   }
 

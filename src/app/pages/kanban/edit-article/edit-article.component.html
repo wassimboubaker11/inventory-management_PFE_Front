@@ -1,0 +1,129 @@
+
+<div class="container-fluid">
+    <app-pagetitle title="Kanban Board" [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
+  
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <div>
+              <!--  -->
+  
+              
+            </div>
+            <form [formGroup]="articleForm"  (ngSubmit)="updatearticle()">
+                <div class="form-group">
+                  <label for="nom">Name :</label>
+                  <input id="nom" [(ngModel)]="article.nom" formControlName="nom" type="text" class="form-control" placeholder="Enter Name Product">
+                </div>
+                <div class="row">
+                  <div class="col-lg-4">
+                    <div class="form-group">
+                      <label for="ref_article">Reference :</label>
+                      <input id="ref_article" [(ngModel)]="article.ref_article" formControlName="ref_article" type="text" class="form-control" placeholder="Enter Reference Product">
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="form-group">
+                      <label for="num_serie">Serial Number :</label>
+                      <input id="num_serie" [(ngModel)]="article.num_serie" formControlName="num_serie" type="text" class="form-control" placeholder="Enter Serial Number">
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="form-group">
+                      <label for="code_barre">Bar Code :</label>
+                      <input id="code_barre" [(ngModel)]="article.code_barre" formControlName="code_barre" type="text" class="form-control" placeholder="Enter Bar Code">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-5">
+                    <div class="form-group">
+                      <label class="control-label">Category :</label>
+                      <select class="form-control select2">
+                        <option>Select</option>
+                        <option value="EL">Electronic</option>
+                        <option value="FA">Fashion</option>
+                        <option value="FI">Fitness</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-lg-7">
+                    <div class="form-group">
+                      <label for="marque">Brand :</label>
+                      <input id="marque" [(ngModel)]="article.marque" formControlName="marque" type="text" class="form-control" placeholder="Enter Brand">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label for="prixachat">Buying Price :</label>
+                        <input id="prixachat" [(ngModel)]="article.prixachat" formControlName="prixachat" type="text" class="form-control" placeholder="Enter Buying Price">
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label for="prixvente">Sell Price :</label>
+                        <input id="prixvente" [(ngModel)]="article.prixvente" formControlName="prixvente" type="text" class="form-control" placeholder="Enter Sell Price">
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label for="quantite">Quantity :</label>
+                        <input class="form-control" type="number" [(ngModel)]="article.quantite" formControlName="quantite" placeholder="Enter Quantity">
+                      </div>
+                    </div>
+                    
+                  </div>
+                  
+                  <div class="row">
+                    <div class="col-lg-7">
+                      <label for="picture">Picture :</label>
+                      <div class="custom-file">
+                          <input type="file" class="custom-file-input" id="picture" formControlName="picture"  name="picture" [alt]="article.picture" (change)="selectpicture($event)"  >
+                          <label class="custom-file-label" for="picture"  > Choose Picture Of Product</label>
+                          
+                        </div>
+                      </div>
+                  </div>
+
+                  <br>
+
+                  <div class="row" >
+                    <div class="col-lg-6">
+
+
+                      <label >Status :</label>
+                    <div class="custom-control custom-radio mb-3">
+                      <input type="radio" id="customRadio1"  class="custom-control-input" name="status" formControlName="status" (ngModelChange)="setArticleStatus(true)" [value]="true" >
+                      <label class="custom-control-label" for="customRadio1">In stock</label>
+                    </div>
+                    <div class="custom-control custom-radio ">
+                      <input type="radio" id="customRadio2"  class="custom-control-input" name="status" formControlName="status" (ngModelChange)="setArticleStatus(false)" [value]="false">
+                      <label class="custom-control-label" for="customRadio2">out of stock</label>
+                    </div>
+                    
+                  </div>
+                  </div>
+
+                  <br>
+                <div class="form-group">
+                  <label for="description">Product Description :</label>
+                  <textarea class="form-control" [(ngModel)]="article.description" formControlName="description" rows="5"></textarea>
+                </div>
+
+                <div class="button-items" >
+                  <button type="submit" class="btn btn-success" > Save  </button>
+                  <button type="button" class="btn btn-danger" (click)="cancel()">Cancel</button>
+                </div>
+              </form>
+
+              
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  

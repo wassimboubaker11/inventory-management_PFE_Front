@@ -21,6 +21,8 @@ admin :any;
   error = '';
   returnUrl: string;
 
+  role:any;
+
   // set the currenr year
   year: number = new Date().getFullYear();
 
@@ -55,8 +57,18 @@ admin :any;
       res=>{
          this.token = res;
          localStorage.setItem('token', this.token.token)
+         this.role = this.authenticationService.getUserDATAFromToken();
+         console.log(this.role);
           console.log(res);
-          this.router.navigate(['/'])
+
+          if(this.role == "ADMIN" || this.role == "USER"){
+            this.router.navigate(['/'])
+          }else{
+            if(this.role=="SUPER_ADMIN"){
+              this.router.navigate(['/calendar'])
+            }
+          }
+          
       },
       err=>{
        console.log(err);

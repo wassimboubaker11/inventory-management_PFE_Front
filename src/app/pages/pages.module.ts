@@ -37,6 +37,9 @@ import { UserComponent } from './user/user.component';
 import { ArticleByDepotComponent } from './chat/article-by-depot/article-by-depot.component';
 import { AddUserComponent } from './user/add-user/add-user.component';
 import { DetailsArticleComponent } from './kanban/details-article/details-article.component';
+import { CategoryComponent } from './category/category.component';
+import { EditOptionComponent } from './option/edit-option/edit-option.component';
+import { AlertComponent } from './alert/alert.component';
 
 
 
@@ -46,7 +49,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 };
 
 @NgModule({
-  declarations: [DashboardComponent, CalendarComponent, ChatComponent, KanbanComponent, AddArticleComponent, EditArticleComponent, OptionComponent, UserComponent, ArticleByDepotComponent, AddUserComponent, DetailsArticleComponent],
+  declarations: [DashboardComponent, CalendarComponent, ChatComponent, KanbanComponent, AddArticleComponent, EditArticleComponent, OptionComponent, UserComponent, ArticleByDepotComponent, AddUserComponent, DetailsArticleComponent, CategoryComponent, EditOptionComponent, AlertComponent],
   imports: [
     CommonModule,
     FormsModule,

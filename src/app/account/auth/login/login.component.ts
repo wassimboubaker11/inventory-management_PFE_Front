@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
 import { AuthenticationService } from '../../../core/services/auth.service';
 import { AuthfakeauthenticationService } from '../../../core/services/authfake.service';
-
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
-
 import { environment } from '../../../../environments/environment';
+import Swal from 'sweetalert2';
+import { AlertService } from 'src/app/core/services/alert.service';
 
 @Component({
   selector: 'app-login',
@@ -15,19 +14,22 @@ import { environment } from '../../../../environments/environment';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-admin :any;
+  admin: any;
   loginForm: FormGroup;
   submitted = false;
   error = '';
   returnUrl: string;
-
-  role:any;
-
-  // set the currenr year
+  role: any;
   year: number = new Date().getFullYear();
 
-  // tslint:disable-next-line: max-line-length
-  constructor( private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router, public authenticationService: AuthenticationService, public authFackservice: AuthfakeauthenticationService) { }
+  constructor(
+    private Alertservice: AlertService,
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    public authenticationService: AuthenticationService,
+    public authFackservice: AuthfakeauthenticationService
+  ) {}
 
   ngOnInit() {
     document.body.removeAttribute('data-layout');
@@ -38,44 +40,77 @@ admin :any;
       password: ['', [Validators.required]],
     });
 
-    // reset login status
-    // this.authenticationService.logout();
-    // get return url from route parameters or default to '/'
-    // tslint:disable-next-line: no-string-literal
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
-  // convenience getter for easy access to form fields
-  get f() { return this.loginForm.controls; }
-
-
-  token : any ;
-  login(){
-    this.admin=this.loginForm.value;
-    this.authenticationService.login(this.admin)
-    .subscribe(
-      res=>{
-         this.token = res;
-         localStorage.setItem('token', this.token.token)
-         this.role = this.authenticationService.getUserDATAFromToken();
-         console.log(this.role);
-          console.log(res);
-
-          if(this.role == "ADMIN" || this.role == "USER"){
-            this.router.navigate(['/'])
-          }else{
-            if(this.role=="SUPER_ADMIN"){
-              this.router.navigate(['/calendar'])
-            }
-          }
-          
-      },
-      err=>{
-       console.log(err);
-      //  this.router.navigate(['/auth/error'])
-      }
-    )
+  get f() {
+    return this.loginForm.controls;
   }
+
+  token: any;
+
+  login() {
+    this.admin = this.loginForm.value;
+    this.authenticationService.login(this.admin).subscribe(
+      res => {
+        this.token = res;
+        localStorage.setItem('token', this.token.token);
+        this.role = this.authenticationService.getUserDATAFromToken();
+        console.log(this.role);
+        console.log(res);
+
+        if (this.role === 'ADMIN' || this.role === 'USER') {
+          this.router.navigate(['/']);
+          this.getAllAlerts();
+        } else if (this.role === 'SUPER_ADMIN') {
+          this.router.navigate(['/calendar']);
+        }
+      },
+      err => {
+        console.log(err);
+        // this.router.navigate(['/auth/error'])
+      }
+    );
+  }
+
+  getAllAlerts() {
+    this.Alertservice.getallalert().subscribe(
+      response => {
+        const alerts = response;
+        console.log(alerts);
+        this.timer(alerts);
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+  timer(alerts: any) {
+    const filteredArticles = alerts?.filter(alert =>
+        alert.article.quantite < alert.quanityMuni ||
+        alert.article.quantite > alert.quanityMax
+    );
+
+    console.log("aaaaaa", filteredArticles)
+
+    if (filteredArticles && filteredArticles.length > 0) {
+      const articleNames = filteredArticles.map(alert => alert.article.nom);
+
+      console.log("gggggg", articleNames)
+      Swal.fire({
+        title: 'Articles with Alerts',
+        html: `The following articles have alerts: <br><strong>${articleNames.join(', ')}</strong>`,
+        icon: 'info',
+        confirmButtonText: 'OK',
+        timer: 5000,
+        timerProgressBar: true,
+        showConfirmButton: false
+      });
+    }
+  }
+
+
 
   /**
    * Form submit

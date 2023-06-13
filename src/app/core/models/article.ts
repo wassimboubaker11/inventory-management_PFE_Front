@@ -12,6 +12,7 @@ export class Article {
     description:any
     picture:any
     status:boolean
+   
 }
 
 

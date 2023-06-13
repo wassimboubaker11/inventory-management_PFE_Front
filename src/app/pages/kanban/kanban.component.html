@@ -1,6 +1,6 @@
 
 <div class="container-fluid">
-  <app-pagetitle title="Kanban Board" [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
+  <app-pagetitle title="Products" [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
 
   <div class="row">
     <div class="col-lg-12">
@@ -68,11 +68,16 @@
                   <td>{{articlee.quantite}}</td>
                   <td>
                    
-                    <div class="badge font-size-12" [ngClass]="{'badge-soft-danger': !articlee.status,
-                      'badge-soft-success': articlee.status
-                      }">{{ articlee.status ? 'In Stock' : 'Out of Stock' }}</div>
-                    
+                    <div class="badge font-size-12" [ngClass]="{
+                      'badge-soft-success': articlee.status === 'IN_STOCK',
+                      'badge-soft-danger': articlee.status === 'OUT_OF_STOCK',
+                      'badge-soft-warning': articlee.status === 'LOW_STOCK'
+                    }">
+                      {{ articlee.status }}
+                    </div>
                   </td>
+
+                  
                   <td>
                     <a href="javascript:void(0);" class="mr-2 text-primary" v-b-tooltip.hover title="View" [routerLink]="['/Kanban-board/detailsarticle', articlee.idarticle]">
                       <i class="mdi mdi-eye font-size-18"></i></a>

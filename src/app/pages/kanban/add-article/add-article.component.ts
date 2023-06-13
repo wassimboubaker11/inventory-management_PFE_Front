@@ -87,9 +87,11 @@ savearticle(){
     }
   )
 }
-setArticleStatus(status: boolean) {
-  this.article.status = status;
-}
+// setArticleStatus(status: boolean) {
+//   this.article.status = status;
+// }
+
+
 
 selectpicture(e:any){
   this.picture = e.target.files[0];

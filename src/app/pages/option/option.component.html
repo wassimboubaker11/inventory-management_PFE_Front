@@ -11,6 +11,8 @@
             <div class="col-md-13">
 				<div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
 					
+
+          
 										
 					<div>
 						<a href="javascript:void(0);" class="btn btn-success mb-2" (click)="openModal(content)">
@@ -28,34 +30,34 @@
               style="border-collapse: collapse; border-spacing: 0; width: 100%;">
               <thead class="thead-light">
                 <tr>
-                  <!-- <th style="width: 20px;">
-                    <div class="custom-control custom-checkbox">
-                      <input type="checkbox" class="custom-control-input" id="customercheck" />
-                      <label class="custom-control-label" for="customercheck">&nbsp;</label>
-                    </div>
-                  </th> -->
+               
                   
-                  <th> Name</th>
-                 
+                  <th> Option</th>
+                  <th> Sous_option</th>
                   <th style="width: 120px;">Action</th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let optionn of options" >
-          
 
-                  <td>{{optionn.nom}} </td>
+                <tr *ngFor="let optionn of options">
+                  <td>{{ optionn.nom }}</td>
                   <td>
-                    <a href="javascript:void(0);" class="mr-2 text-primary" ngbTooltip="Edit" ><i
-                        class="mdi mdi-pencil font-size-18"></i></a>
-
-                    <a href="javascript:void(0);" class="text-danger" v-b-tooltip.hover title="Delete" (click)="confirm(optionn.idoption)">
-                      <i class="mdi mdi-trash-can font-size-18"  ></i>
-                    </a>
-
+                    <ng-container *ngFor="let sousoption of optionn.sous_options">
+                      {{ sousoption.nom }}
+                      <br>
+                    </ng-container>
                   </td>
+                  <td>
+                    <a href="javascript:void(0);" class="mr-2 text-primary" ngbTooltip="Edit" [routerLink]="['/edit-option' , optionn.idoption]" ><i
+                      class="mdi mdi-pencil font-size-18"></i></a>
 
+                  <a href="javascript:void(0);" class="text-danger" v-b-tooltip.hover title="Delete" (click)="confirm(optionn.idoption)">
+                    <i class="mdi mdi-trash-can font-size-18"  ></i>
+                  </a>
+                  </td>
                 </tr>
+
+               
               </tbody>
             </table>
           </div>

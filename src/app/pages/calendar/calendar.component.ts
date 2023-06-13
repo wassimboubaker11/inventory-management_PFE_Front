@@ -31,7 +31,7 @@ export class CalendarComponent implements OnInit {
   
 
   ngOnInit() {
-    this.breadCrumbItems = [{ label: 'Nazox' }, { label: 'Calendar', active: true }];
+    this.breadCrumbItems = [{ label: 'Nazox' }, { label: 'Companies', active: true }];
     
     this.getalladmin();
 

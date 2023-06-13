@@ -8,7 +8,7 @@ export class ClientFournisseurService {
 
   constructor(private http:HttpClient) { }
 
- getAllFournisseur(){
+getAllFournisseur(){
     return this.http.get<any>("http://localhost:8081/api/v1/getAllFounisseur");
 }
 saveFounisseur(fournisseur:any){

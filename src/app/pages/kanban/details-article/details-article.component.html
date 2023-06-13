@@ -43,6 +43,7 @@
                         <p><b>Sell Price :</b> {{article?.prixvente}}</p>
                         <p><b>Quantity :</b> {{article?.quantite}}</p>
                         
+                        
                     </div>
 
 
@@ -62,29 +63,33 @@
                       <thead class="thead-light">
                         <tr>
                           <th>ID</th>
+                          <th>Nom</th>
                           <th>Option</th>
                           <th>Sub-option</th>
+                          <th>Quantity</th>
                         </tr>
                       </thead>
-                      <tbody>
-                        <ng-container *ngFor="let variant of variants">
-                          <ng-container *ngFor="let option of getUniqueOptions(variant.sousOptions); let isFirstOption = first">
-                            <ng-container *ngIf="isFirstOption; else subOptionRow">
-                              <tr>
-                                <td [attr.rowSpan]="getRowCount(variant.sousOptions, option)">{{ variant.idvariant }}</td>
-                                <td>{{ option.option.nom }}</td>
-                                <td>{{ getSubOptionText(variant.sousOptions, option) }}</td>
-                              </tr>
-                            </ng-container>
-                            <ng-template #subOptionRow>
-                              <tr>
-                                <td>{{ option.option.nom }}</td>
-                                <td>{{ getSubOptionText(variant.sousOptions, option) }}</td>
-                              </tr>
-                            </ng-template>
-                          </ng-container>
-                        </ng-container>
-                      </tbody>
+                     
+                             
+                        <tbody>
+                          <tr *ngFor="let variant of variants">
+                            <td>{{ variant.idvariant }}</td>
+                            <td>{{ variant.nom }}</td>
+                            <td>
+                              <ng-container *ngFor="let sousOption of variant.sousOptions">
+                                <div>{{ sousOption.option.nom }}</div>
+                              </ng-container>
+                            </td>
+                            <td>
+                              <ng-container *ngFor="let sousOption of variant.sousOptions">
+                                <div>{{ sousOption.nom }}</div>
+                              </ng-container>
+                            </td>
+                            <td>{{ variant.quantity }}</td>
+                          </tr>
+                        </tbody>
+                                                           
+                      
                     </table>
         
                   </div>
@@ -114,22 +119,46 @@
     <div class="modal-body p-3">
       <div class="text-left">
       <form  >
+        <div class="row">
+          <div class="col-md-5 offset-md-1">
+            <input  [(ngModel)]="nomvariant" name="nomvariant"  type="text" class="form-control" placeholder="Enter Name Variant">
+          </div>
+          <div class="col-md-5">
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Quantity:</span>
+                </div>
+                <input class="form-control" type="number" min="0" max="{{ maxQuantity }}" [(ngModel)]="quantity" name="quantity" />
+                      <span class="text-danger" *ngIf="quantity === maxQuantity">Maximum quantity reached!</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+
     
        
         <div class="treeview" data-mdb-selectable="true">
           <ul>
             <li *ngFor="let optionn of option">
-              <a>{{optionn.nom}}</a>
+              <a><b>{{ optionn.nom }} :</b></a>
               <ul class="show">
                 <li *ngFor="let sousoption of optionn.sous_options">
-                  <div class="custom-control custom-checkbox custom-control-right">
 
-                    <input  type="checkbox" 
-                    class="custom-control-input"
+                  <div class="custom-control custom-radio mb-3">
+                    <input 
+                    type="radio"  
+                     class="custom-control-input"
+                     [value]="sousoption.idsousoption"
+                     [checked]="isSelectedSubOption(optionn, sousoption)"
                      [id]="sousoption.idsousoption" 
-                     (change)="toggleSubOption(sousoption.idsousoption)" >
-                    <label class="custom-control-label" [for]="sousoption.idsousoption">{{sousoption.nom}}</label>
+                     (change)="toggleSubOption(optionn, sousoption)">
+                    <label class="custom-control-label" for="customRadio1"[for]="sousoption.idsousoption">{{sousoption.nom}}</label>
                   </div>
+
+
+                 
                 </li>
               </ul>
             </li>
@@ -146,3 +175,13 @@
       </div>
     </div>
     </ng-template>
+
+
+     <!-- <div class="custom-control custom-checkbox custom-control-right">
+
+                    <input  type="checkbox" 
+                    class="custom-control-input"
+                     [id]="sousoption.idsousoption" 
+                     (change)="toggleSubOption(sousoption.idsousoption)" >
+                    <label class="custom-control-label" [for]="sousoption.idsousoption">{{sousoption.nom}}</label>
+                  </div> -->

@@ -14,6 +14,8 @@ import { VariantService } from 'src/app/core/services/variant.service';
   styleUrls: ['./details-article.component.scss']
 })
 export class DetailsArticleComponent implements OnInit {
+quantity:any
+maxQuantity: number;
   article:any
 
   idarticle:any
@@ -23,6 +25,8 @@ export class DetailsArticleComponent implements OnInit {
   option:any
 
   picture:any
+
+  nomvariant:any
 
  variant:Variant = new Variant();
  @Input() variants: any[];
@@ -57,9 +61,18 @@ export class DetailsArticleComponent implements OnInit {
     )
   }
 
+  calculateMaxQuantity() {
+    const totalQuantity = this.variants.reduce((total, variant) => total + variant.quantity, 0);
+    this.maxQuantity = this.article.quantite - totalQuantity;
+  }
+
   openModal(content: any) {
+    this.calculateMaxQuantity();
     this.getAlloption();
     this.modalService.open(content, { centered: true });
+    this.quantity=null;
+    this.selectedSubOptions = [];
+    this.nomvariant=null;
   }
 
   getAlloption(){
@@ -76,33 +89,33 @@ export class DetailsArticleComponent implements OnInit {
   }
 
   savevariant(){
-    const request = { sousOptions: this.selectedSubOptions };
+    const request = { sousOptions: this.selectedSubOptions , quantity:this.quantity , nom:this.nomvariant };
     this.variantservice.addvariant(request,this.idarticle).subscribe(
       responce=>{
         this.variant=responce
-        //this.variants.push(responce);
-        //this.getUniqueOptions(this.variants.sousOptions)
+       
         console.log(responce)
         this.ngOnInit();
         this.modalService.dismissAll();
+        this.quantity=null;
+        this.selectedSubOptions = [];
+        this.nomvariant=null;
       },
       err=>{
         console.log(err)
       }
     )
+
+    
   }
 
-  toggleSubOption(subOptionId: number): void {
-    const index = this.selectedSubOptions.indexOf(subOptionId);
-    if (index === -1) {
-      // Add sub-option to selected list
-      this.selectedSubOptions.push(subOptionId);
-      console.log(this.selectedSubOptions)
-    } else {
-      // Remove sub-option from selected list
-      this.selectedSubOptions.splice(index, 1);
-      console.log(this.selectedSubOptions)
-    }
+
+  isSelectedSubOption(option: any, subOption: any): boolean {
+    return this.selectedSubOptions[option.idoption] === subOption.idsousoption;
+  }
+  
+  toggleSubOption(option: any, subOption: any): void {
+    this.selectedSubOptions[option.idoption] = subOption.idsousoption;
   }
 
   getvariantbyidarticle(){
@@ -116,30 +129,45 @@ export class DetailsArticleComponent implements OnInit {
       }
     )
   }
-
-  getUniqueOptions(sousOptions: any[]): any[] {
-  const options: any[] = [];
-  for (const sousOption of sousOptions) {
-    const option = options.find(opt => opt.option.idoption === sousOption.option.idoption);
-    if (!option) {
-      options.push({
-        option: sousOption.option
-      });
-    }
-  }
-  return options;
 }
 
-getRowCount(sousOptions: any[], option: any): number {
-  return sousOptions.filter(subOption => subOption.option.idoption === option.option.idoption).length;
-}
+  // toggleSubOption(subOptionId: number): void {
+  //   const index = this.selectedSubOptions.indexOf(subOptionId);
+  //   if (index === -1) {
+  //     // Add sub-option to selected list
+  //     this.selectedSubOptions.push(subOptionId);
+  //     console.log(this.selectedSubOptions)
+  //   } else {
+  //     // Remove sub-option from selected list
+  //     this.selectedSubOptions.splice(index, 1);
+  //     console.log(this.selectedSubOptions)
+  //   }
+  // }
 
-getSubOptionText(sousOptions: any[], option: any): string {
-  const subOptions = sousOptions.filter(subOption => subOption.option.idoption === option.option.idoption);
-  return subOptions.map(subOption => subOption.nom).join(', ');
-}
 
-  }
+//   getUniqueOptions(sousOptions: any[]): any[] {
+//   const options: any[] = [];
+//   for (const sousOption of sousOptions) {
+//     const option = options.find(opt => opt.option.idoption === sousOption.option.idoption);
+//     if (!option) {
+//       options.push({
+//         option: sousOption.option
+//       });
+//     }
+//   }
+//   return options;
+// }
+
+// getRowCount(sousOptions: any[], option: any): number {
+//   return sousOptions.filter(subOption => subOption.option.idoption === option.option.idoption).length;
+// }
+
+// getSubOptionText(sousOptions: any[], option: any): string {
+//   const subOptions = sousOptions.filter(subOption => subOption.option.idoption === option.option.idoption);
+//   return subOptions.map(subOption => subOption.nom).join(', ');
+// }
+
+  
 
 
 

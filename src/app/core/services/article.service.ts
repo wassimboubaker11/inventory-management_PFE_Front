@@ -34,4 +34,8 @@ export class ArticleService {
   getallarticlebyiddepot(iddepot:any){
     return this.http.get<any>("http://localhost:8081/api/v1/getallarticlebyiddepot/" +iddepot)
   }
+
+  getAllArticlewithOutAlert(){
+    return this.http.get<any>("http://localhost:8081/api/v1/getAllArticlewithOutAlert")
+  }
 }

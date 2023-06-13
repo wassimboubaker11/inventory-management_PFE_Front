@@ -3,6 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { AdminService } from 'src/app/core/services/admin.service';
 import { GestionaireService } from 'src/app/core/services/gestionaire.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -87,6 +88,38 @@ export class UserComponent implements OnInit {
           console.log(err);
       }
     )
+  }
+
+
+  confirm(id:any) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You won\'t be able to revert this!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#34c38f',
+      cancelButtonColor: '#f46a6a',
+      confirmButtonText: 'Yes, delete it!'
+    }).then(result => {
+      if (result.value) {
+        
+          this.gestionservice.deletegestionairebyid(id).subscribe(
+              
+            responce=>{
+              console.log(responce)
+              this.ngOnInit();
+              
+            },
+            err=>{
+              console.log(err)
+            }
+          )
+        
+        Swal.fire('Deleted!', 'company has been deleted.', 'success');
+        
+      }
+      
+    });
   }
 
  

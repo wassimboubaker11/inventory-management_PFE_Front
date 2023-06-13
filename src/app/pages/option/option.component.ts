@@ -17,7 +17,7 @@ export class OptionComponent implements OnInit {
 
   option:Option= new Option();
   
-  options
+  options:any
 
   constructor(private modalService: NgbModal, private optionservice:OptionService) { }
 

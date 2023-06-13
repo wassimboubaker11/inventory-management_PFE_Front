@@ -25,7 +25,7 @@ export const MENU: MenuItem[] = [
     },
     {
         id: 3,
-        label: 'MENUITEMS.CALENDAR.TEXT',
+        label: 'Companies',
         icon: 'ri-calendar-2-line',
         link: '/calendar',
         userRole: ['SUPER_ADMIN' ] 
@@ -34,9 +34,18 @@ export const MENU: MenuItem[] = [
 
     {
         id: 4,
-        label: 'MENUITEMS.CHAT.TEXT',
+       // label: 'MENUITEMS.CHAT.TEXT',
+       label: 'Dépôt',
         icon: ' ri-home-3-line',
         link: '/chat',
+        userRole: ['USER' , 'ADMIN' ] 
+    },
+    {
+        id: 5,
+       
+       label: 'Catégorie',
+        icon: '  fas fa-grip-vertical',
+        link: '/category',
         userRole: ['USER' , 'ADMIN' ] 
     },
 
@@ -51,8 +60,9 @@ export const MENU: MenuItem[] = [
    
     {
         id: 15,
-        label: 'MENUITEMS.KANBAN.TEXT',
-        icon: 'ri-artboard-2-line',
+        //label: 'MENUITEMS.KANBAN.TEXT',
+        label: 'produits',
+        icon: ' fab fa-product-hunt',
         link: '/kanban-board',
         userRole: ['USER' , 'ADMIN' ] 
     },
@@ -81,9 +91,45 @@ export const MENU: MenuItem[] = [
                 link: '/tier/founisseur',
                 parentId: 72
             },
+           
         ]
     },
     {
+        id: 73,
+        label: 'Commandes',
+        icon: 'ri-command-fill',
+        userRole: ['USER' , 'ADMIN' ],
+        subItems: [
+           
+            
+            {
+                id: 1,
+                label: 'List Commande Founisseur',
+                link: '/tier/listcommandefounisseur',
+                parentId: 72
+            },
+            {
+                id: 2,
+                label: 'List Commande Client',
+                link: '/tier/listcommandeclient',
+                parentId: 72
+            },
+            {
+                id: 3,
+                label: 'histoire',
+                link: '/tier/historique',
+                parentId: 72
+            },
+        ]
+    },
+    {
+        id: 74,
+        label: 'Alerts',
+        icon: 'ri-alert-fill',
+        link: '/alert',
+        userRole: ['USER' , 'ADMIN' ] 
+    },
+     {
         id: 5,
         label: 'MENUITEMS.ECOMMERCE.TEXT',
         icon: 'ri-store-2-line',
@@ -554,4 +600,4 @@ export const MENU: MenuItem[] = [
             },
         ]
     }
-];
+ ];

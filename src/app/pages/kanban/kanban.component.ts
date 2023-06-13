@@ -29,7 +29,7 @@ export class KanbanComponent implements OnInit {
   constructor(private modalService: NgbModal,private articleservice : ArticleService , config: NgbPaginationConfig) {  config.size = 'sm'; config.boundaryLinks = true; config.maxSize = 10;}
 
   ngOnInit(): void {
-    this.breadCrumbItems = [{ label: 'Nazox' }, { label: 'Kanban Board', active: true }];
+    this.breadCrumbItems = [{ label: 'Nazox' }, { label: 'Products', active: true }];
     this.getallarticle();
     
   }

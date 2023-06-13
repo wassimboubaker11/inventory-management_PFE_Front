@@ -2,7 +2,7 @@
 
 
 <div class="container-fluid">
-  <app-pagetitle title="chat" [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
+  <app-pagetitle title="Dépôt" [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
 
   <div class="row">
     <div class="col-lg-12">
@@ -95,19 +95,19 @@
 		<form (ngSubmit)="saveDepot()" >
   
 		  <div class="form">
-			<label for="name">Name</label>
+			<label for="name">Name :</label>
 			<input class="form-control" type="text" [(ngModel)]="depot.nom" name="nom" id="name" placeholder="Enter name">
 			
 		  </div>
   
 		  <div class="form">
-			<label for="address"> address</label>
+			<label for="address"> address :</label>
 			<input class="form-control" [(ngModel)]="depot.adresse" name="adresse" placeholder="Enter address" >
 			
 		  </div>
   
 		  <div class="form">
-			<label>Number </label>
+			<label>Number :</label>
 			<input class="form-control" type="number" [(ngModel)]="depot.numero" name="numero" placeholder="Enter number">
 			
 		  </div>
@@ -115,7 +115,7 @@
 
   
 		  <div class="form-group">
-			<label>Date </label>
+			<label>Date :</label>
 			<input class="form-control" [(ngModel)]="depot.datecreation" name="datecreation" type="date"  >
 		  </div>
 
@@ -145,20 +145,20 @@
 		<form (ngSubmit)="updateDepot()" >
   
 		  <div class="form">
-			<label for="name">Name</label>
+			<label for="name">Name :</label>
 			<input class="form-control" type="text" [(ngModel)]="depot.nom" name="nom" id="name" placeholder="Enter name" 
 			  >
 			
 		  </div>
   
 		  <div class="form">
-			<label for="address"> address</label>
+			<label for="address"> address :</label>
 			<input class="form-control" [(ngModel)]="depot.adresse" name="adresse" placeholder="Enter address" >
 			
 		  </div>
   
 		  <div class="form">
-			<label>Number </label>
+			<label>Number :</label>
 			<input class="form-control" type="number" [(ngModel)]="depot.numero" name="numero" placeholder="Enter number">
 			
 		  </div>
@@ -166,7 +166,7 @@
 
   
 		  <div class="form-group">
-			<label>Date </label>
+			<label>Date :</label>
 			<input class="form-control" [(ngModel)]="depot.datecreation" name="datecreation" type="date"  >
 		  </div>
 

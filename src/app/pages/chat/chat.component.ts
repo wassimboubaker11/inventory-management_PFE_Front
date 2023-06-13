@@ -50,7 +50,7 @@ export class ChatComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.breadCrumbItems = [{ label: 'Nazox' }, { label: 'Chat', active: true }];
+    this.breadCrumbItems = [{ label: 'Nazox' }, { label: 'Dépôt', active: true }];
     this.getalldepot();
     };
 

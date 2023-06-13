@@ -1,0 +1,208 @@
+
+<div class="container-fluid">
+  <app-pagetitle title="Commande" [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <div>
+            <!--  -->
+
+            <div style="display: flex;">
+            <div style="width: 200px; margin-right: 20px;">            
+              <select  class="form-control select2"  (change)="getArticlebyid($event)" >
+                <option value="">Select Article</option>
+                <option *ngFor="let article of articles" [value]="article.idarticle">{{ article.nom}}</option>                        
+              </select>               
+            </div>  
+
+            <div style="width: 200px; margin-right: 20px;">            
+              <select  class="form-control select2"  (change)="getIDclient($event.target.value)" >
+                <option value="">Select Client</option>
+                <option *ngFor="let client of clients" [value]="client.idtier">{{client.nom}}</option>                        
+              </select>               
+            </div>  
+
+
+            <div class="form">
+              <input class="form-control" [(ngModel)]="nomcommande" name="nomcommande" placeholder="Enter Nom Commande" >
+              
+              </div>
+          </div>
+            <br>
+            <form >
+              
+            <table  class="table table-centered mb-0 table-nowrap">
+              <thead class="bg-light">
+                <tr>
+                  <th style="width: 120px">Picture</th>
+                  <th>Product </th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th>Total</th>
+                  <th class="text-center">Action</th>
+                </tr>
+              </thead>
+             
+              <tbody >
+                <ng-container>
+                <tr *ngFor="let article of selectedarticles ; let i = index" >
+
+                
+                  
+                  <td>
+                    <img [src]="'http://localhost:8081/api/v1/file/files/' + article.picture"   class="avatar-md"  />
+                  
+                  </td>
+                  
+
+                  <td>     
+                    {{article.nom}}
+                </td>
+
+                <td>
+                  
+                  {{article.prixachat}}
+                </td>
+
+                  <td>
+                    <div style="width: 120px;">
+                    <div class="input-group bootstrap-touchspin bootstrap-touchspin-injected">
+                      <input class="form-control" type="number" min="0" [max]="selectedarticles[i].quantite" [(ngModel)]="quantities[i]" name="quantities" (ngModelChange)="updateTotalPrice(i)" />
+                      <span *ngIf="quantities[i] >= selectedarticles[i].quantite" class="text-danger">Maximum quantity reached!</span>
+                        
+                       </div>
+                    </div>
+                   </td>
+
+                   <td>
+                    {{ totalPrices[i] }}
+                  </td>
+
+                  <td style="width: 90px;" class="text-center">
+                    
+                      <button type="button" class="btn btn-outline-danger" (click)="removeArticle(article)" ><i class="mdi mdi-trash-can " ></i>
+                      </button>
+                    
+                    
+                     
+                  </td>
+
+                </tr>
+
+                
+             
+              </ng-container>
+
+              <tr class="bg-light text-right" *ngIf="totalPriceAll > 0">
+                <th scope="row" colspan="5">
+                  Price Total:
+                </th>
+                <td>{{ totalPriceAll }}</td>
+              </tr>
+
+              </tbody>
+            </table>
+            <br>
+           
+            <div class="d-flex justify-content-end">
+              
+              <button type="button" class="btn btn-outline-info" (click)="saveCommande()" *ngIf="totalPriceAll > 0">Save Commande</button>
+              <!-- <button type="submit" class="btn btn-success" (click)="saveCommande()" *ngIf="totalPriceAll > 0">
+                Save Commande
+              </button> -->
+            </div>
+</form>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+            <!-- <form [formGroup]="commandeForm" (ngSubmit)="submitCommande()">
+              <div formArrayName="orderItems">
+                <div *ngFor="let item of commandeForm.get('orderItems')['controls']; let i = index">
+                  <div [formGroupName]="i">
+                    <label>Article ID:</label>
+                    <select formControlName="articleId">
+                      <option value="">Select Article</option>
+                      <option *ngFor="let article of articles" [value]="article.idarticle">{{ article.nom }}</option>
+                    </select>
+                    <label>Quantity:</label>
+                    <input type="number" formControlName="quantity" />
+            
+                    <button type="button" *ngIf="i > 0" (click)="removeOrderItemForm(i)">Remove</button>
+                    <button type="button" *ngIf="i === commandeForm.get('orderItems')['controls'].length - 1" (click)="addOrderItemForm()">Add Product</button>
+                  </div>
+                </div>
+              </div>
+            
+              <button type="submit">Save Commande</button>
+            </form> -->
+
+   <!-- <form [formGroup]="commandeForm" (ngSubmit)="submitCommande()">
+    <div formArrayName="orderItems">
+            <div class="container text-center" *ngFor="let item of commandeForm.get('orderItems')['controls']; let i = index">
+              <div [formGroupName]="i">
+              <div class="row row-cols-2 row-cols-lg-6 g-2 g-lg-3">
+                <div class="col">
+                  <div class="p-3"><select formControlName="articleId">
+                    <option value="">Select Article</option>
+                    <option *ngFor="let article of articles" [value]="article.idarticle">{{ article.nom }}</option>
+                  </select></div>
+                </div>
+                <div class="col">
+                  <div class="p-3"><input type="number" formControlName="quantity" /></div>
+                </div>
+                <div class="col">
+                  <div class="p-3"><button type="button" *ngIf="i > 0" (click)="removeOrderItemForm(i)">Remove</button>
+                    <button type="button" *ngIf="i === commandeForm.get('orderItems')['controls'].length - 1" (click)="addOrderItemForm()">Add Product</button></div>
+                </div>
+                <div class="col">
+                  <div class="p-3">Row column</div>
+                </div>
+                <div class="col">
+                  <div class="p-3">Row column</div>
+                </div>
+                <div class="col">
+                  <div class="p-3">Row column</div>
+                </div>
+              </div>
+              </div>
+            </div>
+          </div>
+            <button type="submit">Save Commande</button>
+</form> -->
+
+
+
+<!-- 
+<form [formGroup]="commandeForm" (ngSubmit)="submitCommande()">
+  <div formArrayName="orderItems">
+    <div *ngFor="let item of commandeForm.get('orderItems')['controls']; let i = index">
+      <div [formGroupName]="i">
+        <label>Article ID:</label>
+        <select formControlName="articleId">
+          <option value="">Select Article</option>
+          <option *ngFor="let article of articles" [value]="article.idarticle">{{ article.nom }}</option>
+        </select>
+        <label>Quantity:</label>
+        <input type="number" formControlName="quantity" />
+
+        <button type="button" *ngIf="i > 0" (click)="removeOrderItemForm(i)">Remove</button>
+        <button type="button" *ngIf="i === commandeForm.get('orderItems')['controls'].length - 1" (click)="addOrderItemForm()">Add Product</button>
+      </div>
+    </div>
+  </div>
+
+  <button type="submit">Save Commande</button>
+</form> -->
+
+           
+         
+        
+          
+
+   

@@ -19,4 +19,11 @@ export class OptionService {
   deleteoption(idoption){
     return this.http.delete<any>("http://localhost:8081/api/v1/deleteoption/"  +idoption)
   }
+  getoptionbyID(idoption:any){
+    return this.http.get<any>("http://localhost:8081/api/v1/getoptiobById/" + idoption)
+  }
+
+  updateoption(option:any , idoption){
+    return this.http.put<any>("http://localhost:8081/api/v1/updateOption/" +idoption , option)
+  }
 }

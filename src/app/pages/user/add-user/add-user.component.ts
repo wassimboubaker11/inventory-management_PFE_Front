@@ -72,7 +72,7 @@ export class AddUserComponent implements OnInit {
     let formData = new FormData()
 
     formData.append('user', JSON.stringify(this.gestionaire));
-  formData.append('photo' , this.photo)
+    formData.append('photo' , this.photo)
   this.gestionaireservice.savegestionaire(formData , this.idadmin).subscribe(
     responce=>{
       console.log(responce)

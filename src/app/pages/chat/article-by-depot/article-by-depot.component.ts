@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { NgbModal, NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ArticleService } from 'src/app/core/services/article.service';
 import Swal from 'sweetalert2';
@@ -9,7 +10,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./article-by-depot.component.scss']
 })
 export class ArticleByDepotComponent implements OnInit {
-
+id:any
   image:any
 
   article:any;
@@ -23,13 +24,14 @@ export class ArticleByDepotComponent implements OnInit {
    // bread crumb items
    breadCrumbItems: Array<{}>;
  
-   constructor(private modalService: NgbModal,private articleservice : ArticleService , config: NgbPaginationConfig) {  config.size = 'sm';
+   constructor(private modalService: NgbModal,private articleservice : ArticleService , config: NgbPaginationConfig, private act:ActivatedRoute) {  config.size = 'sm';
    config.boundaryLinks = true;
    config.maxSize = 10;}
  
    ngOnInit(): void {
+    this.id = this.act.snapshot.paramMap.get('id')
      this.breadCrumbItems = [{ label: 'Nazox' }, { label: 'Kanban Board', active: true }];
-     this.getallarticle();
+     this.getallarticlebyiddepot();
      
    }
    searchDepots() {
@@ -45,22 +47,36 @@ export class ArticleByDepotComponent implements OnInit {
        this.ngOnInit();
      }
    }
+
+   getallarticlebyiddepot(){
+    this.articleservice.getallarticlebyiddepot(this.id).subscribe(
+      responce=>{
+        this.article=responce
+        this.image=responce.picture
+         this.totalItems = responce.length;
+        console.log(responce)
+      },
+      err=>{
+        console.log(err)
+      }
+    )
+   }
  
   
-   getallarticle(){
-     this.articleservice.getallarticle().subscribe(
-       responce=>{
-         this.article =responce
-         console.log(responce)
-         this.image=responce.picture
-         this.totalItems = responce.length;
+  //  getallarticle(){
+  //    this.articleservice.getallarticle().subscribe(
+  //      responce=>{
+  //        this.article =responce
+  //        console.log(responce)
+  //        this.image=responce.picture
+  //        this.totalItems = responce.length;
  
-       },
-       err=>{
-         console.log(err)
-       }
-     )
-   }
+  //      },
+  //      err=>{
+  //        console.log(err)
+  //      }
+  //    )
+  //  }
  
    confirm(id:any) {
      Swal.fire({

@@ -1,0 +1,149 @@
+
+<div class="container-fluid">
+    <app-pagetitle title="Commandes Clients" [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
+  
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <div>
+              <!--  -->
+  
+              <div class="col-md-13">
+                <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
+                  <div class="col-md-9">
+                    <div class="form-inline float-md-right" >
+                      <div class="search-box ml-2">
+                      <div class="position-relative">
+                        <input type="text" class="form-control rounded" placeholder="Search..." (input)="searchCommande()" [(ngModel)]="searchQuery" >
+                        <i class="mdi mdi-magnify search-icon"></i>
+                      </div>
+                      </div>
+                    </div>
+                    </div>
+                            
+                  <div>
+                    <a href="javascript:void(0);" class="btn btn-success mb-2" routerLink="/tier/addCommandeClient">
+                      <i class="mdi mdi-plus mr-2" ></i> Add Commande
+                    </a>
+                    </div>
+                  
+                </div>
+                
+              </div>
+              
+            </div>
+            <div class="table-responsive mt-3">
+              <table class="table table-centered datatable dt-responsive nowrap"
+                style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                <thead class="thead-light">
+                  <tr >
+                    <th >#</th>
+                    <th>Name Commande</th>
+                    <th >Amount</th>
+                    <th >Quantity</th>
+                    <th>Date</th>
+                    <!-- <th>items ordered</th> -->
+                    <th style="width: 120px;">Action</th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let commandee of commandes">
+            
+                    <td >{{commandee.idcommande}}</td>
+                    <td >{{commandee.nom}}</td>
+                    <td >{{commandee.montant}}</td>
+                    <td >{{commandee.quantite}}</td>
+                    <td >{{commandee.date}}</td>
+                    <!-- <td></td> -->
+                  
+                    <td>
+                      <!-- <a href="javascript:void(0);" class="mr-2 text-primary" v-b-tooltip.hover title="Pdf">
+                        <i class="mdi mdi-file-document font-size-18"></i>
+                      </a> -->
+                      
+                      <a href="javascript:void(0);" class="mr-2 text-primary" v-b-tooltip.hover title="View" >
+                        <i class="mdi mdi-eye font-size-18" (click)="extraLarge(exlargeModal ,commandee.idcommande)"></i></a>
+  
+                      <!-- <a href="javascript:void(0);" class="mr-2 text-primary" ngbTooltip="Edit" ><i
+                        class="mdi mdi-pencil font-size-18"></i></a> -->
+  
+                      <a href="javascript:void(0);" class="text-danger" v-b-tooltip.hover title="Delete" >
+                        <i class="mdi mdi-trash-can font-size-18" (click)="confirm(commandee.idcommande)"  ></i></a>
+                   
+                        
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <!-- <div class="col-sm-12 col-md-7">
+                <div class="text-md-right float-md-right pagination-rounded">
+                  <ngb-pagination [(page)]="currentPage" [pageSize]="pageSize" [collectionSize]="totalItems"></ngb-pagination>
+                  
+                </div>
+              </div> -->
+            </div>
+            
+  
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  
+  <ng-template #exlargeModal let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title mt-0">Articles Commande </h5>
+      <div class="button-items ml-auto">
+        <button type="button" class="btn btn-secondary btn-rounded" *ngIf="!commandebyid.factureDTO" (click)="savefacture()" >
+          <i class="fa fa-file" ></i> Save Facture
+        </button>
+      </div>
+      <div class="button-items ml-auto">
+      <button type="button" class="btn btn-secondary btn-rounded" *ngIf="commandebyid.factureDTO" (click)="openPDF()">
+        <i class="fa fa-file" ></i> get facture
+      </button>
+    </div>
+  
+    
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Close click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="container profile-page">
+    <div class="row">
+        <div class="col-xl-6 col-lg-7 col-md-12" *ngFor="let articless of articles">
+            <div class="card profile-header" >
+                <div class="body" >
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-12" >
+                            <div class="profile-image float-md-right"> <img img [src]="'http://localhost:8081/api/v1/file/files/' + articless.imageUrl" alt=""> </div>
+                        </div>
+                        <div class="col-lg-8 col-md-8 col-12">
+                            <h4 class="m-t-0 m-b-0"><strong>{{articless.name }}</strong> </h4>
+                            <span class="job_post"><strong>Prix D'achat :</strong>  {{articless.salePrice }}</span>  <br>
+                            <span class="job_post"><strong>Quantité :</strong>{{ articless.quantity }} </span>
+                            
+                            
+                        
+                        </div>                
+                    </div>
+                </div>                    
+            </div>
+        </div>
+       
+        
+        
+        
+    </div>
+        
+    
+</div>
+    </div>
+  </ng-template>

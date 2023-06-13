@@ -13,6 +13,9 @@ import { ArticleByDepotComponent } from './chat/article-by-depot/article-by-depo
 import { AddUserComponent } from './user/add-user/add-user.component';
 import { DetailsArticleComponent } from './kanban/details-article/details-article.component';
 import { AuthGuard } from '../core/guards/auth.guard';
+import { CategoryComponent } from './category/category.component';
+import { EditOptionComponent } from './option/edit-option/edit-option.component';
+import { AlertComponent } from './alert/alert.component';
 
 const routes: Routes = [
     { path: '', component: DashboardComponent },
@@ -24,8 +27,11 @@ const routes: Routes = [
     {path:  'Kanban-board/editarticle/:id' , component:EditArticleComponent},
     {path:  'Kanban-board/detailsarticle/:id' , component:DetailsArticleComponent},
     {path:  'option' , component:OptionComponent},
+     {path: 'edit-option/:id', component:EditOptionComponent},
     {path:  'user' , component:UserComponent},
     {path:  'user/adduser' , component:AddUserComponent},
+    {path:  'category' , component:CategoryComponent},
+    {path : 'alert' , component:AlertComponent},
     { path: 'ecommerce', loadChildren: () => import('./ecommerce/ecommerce.module').then(m => m.EcommerceModule) , canActivate: [AuthGuard]},
     { path: 'email', loadChildren: () => import('./email/email.module').then(m => m.EmailModule) , canActivate: [AuthGuard]},
     { path: 'pages', loadChildren: () => import('./utility/utility.module').then(m => m.UtilityModule) , canActivate: [AuthGuard]},
@@ -36,6 +42,7 @@ const routes: Routes = [
     { path: 'tables', loadChildren: () => import('./tables/tables.module').then(m => m.TablesModule), canActivate: [AuthGuard] },
     { path: 'maps', loadChildren: () => import('./maps/maps.module').then(m => m.MapsModule), canActivate: [AuthGuard] },
     { path: 'tier',loadChildren:() => import('./client-founisseur/client-founisseur.module').then(m=>m.ClientFounisseurModule), canActivate: [AuthGuard]}
+    
 ];
 
 @NgModule({

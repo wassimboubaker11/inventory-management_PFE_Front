@@ -23,4 +23,8 @@ getgestionairebyemail(email:any){
 savegestionaire(gestionaire:any , idadmin:any){
 return this.http.post<any>("http://localhost:8081/api/v1/user/register/"+idadmin , gestionaire);
 }
+
+deletegestionairebyid(idcategory:any){
+  return this.http.delete<any>("http://localhost:8081/api/v1/user/deletegestionaire/"+idcategory)
+}
 }

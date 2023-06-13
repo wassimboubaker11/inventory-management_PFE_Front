@@ -26,7 +26,7 @@ breadCrumbItems: Array<{}>;
   constructor(private modalService: NgbModal, private clienttfournisseurservice:ClientFournisseurService) { }
 
   ngOnInit(): void {
-    this.breadCrumbItems = [{ label: 'Nazox' }, { label: 'Clients', active: true }];
+    this.breadCrumbItems = [{ label: 'Nazox' }, { label: 'Fournisseurs', active: true }];
     bsCustomFileInput.init();
     this.getAllFournisseur()
   }

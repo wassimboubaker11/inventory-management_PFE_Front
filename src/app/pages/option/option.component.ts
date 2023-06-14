@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Gestionaire } from 'src/app/core/models/gestionaire';
 import { Option } from 'src/app/core/models/option';
@@ -18,8 +19,13 @@ export class OptionComponent implements OnInit {
   option:Option= new Option();
   
   options:any
+  validationForm: FormGroup;
 
-  constructor(private modalService: NgbModal, private optionservice:OptionService) { }
+  constructor(private modalService: NgbModal, private optionservice:OptionService,public formBuilder: FormBuilder ) { 
+    this.validationForm = this.formBuilder.group({ // Initialize validationForm with form controls and validators
+    nom: ['', Validators.required],
+    
+  });}
 
   ngOnInit(): void {
     this.breadCrumbItems = [{ label: 'Nazox' }, { label: 'Option', active: true }];
@@ -36,14 +42,21 @@ export class OptionComponent implements OnInit {
     this.modalService.open(content, { centered: true });
   }
   saveOption(){
+    if (this.validationForm.valid) {
     this.optionservice.saveoption(this.option).subscribe(
       responce=>{
         console.log(responce)
         this.ngOnInit();
         this.modalService.dismissAll();
+        this.validationForm.reset();
       },
       err=>{console.log(err)}
     )
+  } else {
+    // Handle form validation errors or display a message to the user
+    // For example:
+    console.log("Form is invalid. Please fill in all required fields.");
+  }
   }
 
   getalloption(){

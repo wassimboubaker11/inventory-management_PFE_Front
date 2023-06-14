@@ -75,25 +75,31 @@
       </div>
       <div class="modal-body p-3">
         <div class="text-left">
-          <form (ngSubmit)="savecategory()" >
+          <form [formGroup]="validationForm" (ngSubmit)="savecategory()" >
     
-            <div class="form">
+            <div class="form"  >
               <label for="name">Name</label>
-              <input class="form-control" type="text" [(ngModel)]="category.nom" name="nom" id="name" placeholder="Enter name" >
-              
+              <input class="form-control" type="text" [(ngModel)]="category.nom" formControlName="nom"  id="name" placeholder="Enter name" >
+              <div *ngIf="validationForm.get('nom').invalid && validationForm.get('nom').touched" class="text-danger">
+                <div *ngIf="validationForm.get('nom').errors.required">
+                  Name is required.
+                </div>
+              </div>
             </div>
     
            
     
             <div class="text-right">
-              <button type="submit" class="btn btn-success">Save</button>
+              <button type="submit" class="btn btn-success" [disabled]="validationForm.invalid">Save</button>
               <button type="button" class="btn btn-danger ml-1" (click)="modal('close click')" >Cancel</button>
             </div>
           </form>
         </div>
       </div>
 
-    </ng-template>  <!-- Contacts model  -->
+    </ng-template>
+    
+    <!-- Contacts model  -->
   <ng-template #content role="document" let-modal="close">
       <div class="modal-header">
         <h5 class="modal-title">Update Category</h5>

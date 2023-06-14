@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import Swal from 'sweetalert2';
 
 
@@ -32,7 +32,16 @@ export class ChatComponent implements OnInit {
   // bread crumb items
   breadCrumbItems: Array<{}>;
 
+  validationForm: FormGroup;
+
   constructor(private modalService: NgbModal,public formBuilder: FormBuilder , private router:Router , private depotservice:DepotService) {
+  
+    this.validationForm = this.formBuilder.group({ // Initialize validationForm with form controls and validators
+      nom: ['', Validators.required],
+      adresse: ['', Validators.required],
+      numero: ['', Validators.required],
+      datecreation: ['', Validators.required]
+    });
   }
 
   searchDepots() {
@@ -78,20 +87,28 @@ export class ChatComponent implements OnInit {
       )
     }
 
-    saveDepot(){
-      this.depotservice.adddepot(this.depot).subscribe(
-        responce=>{
-          console.log(responce)
-          this.ngOnInit();
-          this.modalService.dismissAll();
-          this.depot=new Depot();
-          
-        },
-        err=>{
-          console.log(err)
-        })
+    saveDepot() {
+      if (this.validationForm.valid) {
+        this.depotservice.adddepot(this.depot).subscribe(
+          response => {
+            console.log(response);
+            this.depot = new Depot();
+            this.ngOnInit();
+            this.modalService.dismissAll();
+            this.validationForm.reset();
+            
+          },
+          error => {
+            console.log(error);
+          }
+        );
+      } else {
+        // Handle form validation errors or display a message to the user
+        // For example:
+        console.log("Form is invalid. Please fill in all required fields.");
+      }
     }
-
+    
     getalldepot(){
       this.depotservice.getalldepot().subscribe(
         responce=>{

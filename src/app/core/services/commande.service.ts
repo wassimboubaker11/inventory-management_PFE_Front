@@ -34,4 +34,9 @@ addcommandefournisseur(idfournisseur:any , nom , request:any){
  deletecommandefournisseur(idcommande:any){
   return this.http.delete<any>("http://localhost:8081/api/v1/deletecommandefournisseur/"+idcommande)
  }
+
+
+ jareb(idclient:any , nom:any , request:any){
+  return this.http.post<any>("http://localhost:8081/api/v1/saveCommandeclientwithvariant/"+idclient +"/" +nom,request)
+}
 }

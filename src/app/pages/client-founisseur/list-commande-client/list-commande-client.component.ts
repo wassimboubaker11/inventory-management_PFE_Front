@@ -74,7 +74,7 @@ totalArticlesHT: number = 0;
             
             const articleWithQuantity = {
               code:mvt.articleDTO.code_barre,
-              name: mvt.articleDTO.nom,
+              name: mvt.nomVariant,
               imageUrl: mvt.articleDTO.picture,
               salePrice: mvt.articleDTO.prixvente,
               quantity: mvt.quantity,
@@ -219,7 +219,7 @@ totalArticlesHT: number = 0;
         0: {cellWidth: 120, textColor: 0},
         1: {cellWidth: 110, textColor: 0}
       },
-      head: [[{content: 'Fournisseur', colSpan: 2, styles: {halign: 'center'}}]],
+      head: [[{content: 'Client', colSpan: 2, styles: {halign: 'center'}}]],
       body: [
         ['Nom', this.client.nom],
         ['Adresse', this.client.address],

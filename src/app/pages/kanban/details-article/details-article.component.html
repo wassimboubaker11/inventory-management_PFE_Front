@@ -28,7 +28,7 @@
                 </div>
                 <div class="project-info-box">
                     <p><b>Category :</b> {{article?.category?.nom}}</p>
-                    <p *ngFor="let articlee of article?.depot"><b>Depots :</b> {{articlee.nom}}</p>
+                    <!-- <p *ngFor="let articlee of article?.depot"><b>Depots :</b> {{articlee.nom}}</p> -->
                 </div>
                 </div>
                 <div class="col-9">
@@ -67,6 +67,7 @@
                           <th>Option</th>
                           <th>Sub-option</th>
                           <th>Quantity</th>
+                          <th>Action</th>
                         </tr>
                       </thead>
                      
@@ -86,6 +87,8 @@
                               </ng-container>
                             </td>
                             <td>{{ variant.quantity }}</td>
+                            <td><a href="javascript:void(0);" class="text-danger" v-b-tooltip.hover title="Delete" >
+                              <i class="mdi mdi-trash-can font-size-18" (click)="confirm(variant.idvariant)" ></i></a></td>
                           </tr>
                         </tbody>
                                                            

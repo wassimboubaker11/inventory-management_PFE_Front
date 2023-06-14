@@ -7,6 +7,7 @@ import { Variant } from 'src/app/core/models/variant';
 import { ArticleService } from 'src/app/core/services/article.service';
 import { OptionService } from 'src/app/core/services/option.service';
 import { VariantService } from 'src/app/core/services/variant.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-details-article',
@@ -129,6 +130,37 @@ maxQuantity: number;
       }
     )
   }
+  
+  confirm(id:any) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You won\'t be able to revert this!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#34c38f',
+      cancelButtonColor: '#f46a6a',
+      confirmButtonText: 'Yes, delete it!'
+    }).then(result => {
+      if (result.value) {
+        
+        this.variantservice.deletevariant(id).subscribe(
+          responce=>{
+            this.ngOnInit()
+            console.log(responce)
+          },
+          err=>{
+            console.log(err)
+          }
+        )
+        
+        Swal.fire('Deleted!', 'company has been deleted.', 'success');
+        
+      }
+      
+    });
+  }
+
+  
 }
 
   // toggleSubOption(subOptionId: number): void {

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Category } from 'src/app/core/models/category';
 import { CategoryService } from 'src/app/core/services/category.service';
@@ -16,7 +17,15 @@ category:Category=new Category();
   // bread crumb items
   breadCrumbItems: Array<{}>;
 
-  constructor(private categoryservice:CategoryService,private modalService: NgbModal) { }
+  validationForm: FormGroup;
+
+  constructor(private categoryservice:CategoryService,private modalService: NgbModal,public formBuilder: FormBuilder ) { 
+    this.validationForm = this.formBuilder.group({ // Initialize validationForm with form controls and validators
+      nom: ['', Validators.required],
+      
+    });
+  
+  }
 
   ngOnInit(): void {
     this.breadCrumbItems = [{ label: 'Nazox' }, { label: 'Catégorie', active: true }];
@@ -58,17 +67,24 @@ category:Category=new Category();
       })
      }
      savecategory(){
+      if (this.validationForm.valid) {
       this.categoryservice.addcategory(this.category).subscribe(
         responce=>{
           console.log(responce)
           this.ngOnInit();
         this.modalService.dismissAll();
         this.category=new Category();
+        this.validationForm.reset();
         },
         err=>{
           console.log(err)
         }
       )
+    } else {
+      // Handle form validation errors or display a message to the user
+      // For example:
+      console.log("Form is invalid. Please fill in all required fields.");
+    }
      }
 
      updateCategory(){

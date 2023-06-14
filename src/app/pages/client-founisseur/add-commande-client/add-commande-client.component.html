@@ -17,12 +17,20 @@
               </select>               
             </div>  
 
+            <div style="width: 200px; margin-right: 20px;" *ngIf="selectedArticleId">            
+              <select  class="form-control select2"  (change)="getvariantbyid($event)" >
+                <option value="">Select Variant</option>
+                <option *ngFor="let variantss of variants" [value]="variantss.idvariant">{{ variantss.nom}}</option>                        
+              </select>               
+            </div>  
+
             <div style="width: 200px; margin-right: 20px;">            
               <select  class="form-control select2"  (change)="getIDclient($event.target.value)" >
                 <option value="">Select Client</option>
                 <option *ngFor="let client of clients" [value]="client.idtier">{{client.nom}}</option>                        
               </select>               
             </div>  
+            
 
 
             <div class="form">
@@ -47,30 +55,30 @@
              
               <tbody >
                 <ng-container>
-                <tr *ngFor="let article of selectedarticles ; let i = index" >
+                <tr *ngFor="let variantt of selectedvariants ; let i = index" >
 
                 
                   
                   <td>
-                    <img [src]="'http://localhost:8081/api/v1/file/files/' + article.picture"   class="avatar-md"  />
+                    <img [src]="'http://localhost:8081/api/v1/file/files/' + variantt.picture"   class="avatar-md"  />
                   
                   </td>
                   
 
                   <td>     
-                    {{article.nom}}
+                    {{variantt.nom}}
                 </td>
 
                 <td>
                   
-                  {{article.prixachat}}
+                  {{variantt.prixvente}}
                 </td>
 
                   <td>
                     <div style="width: 120px;">
                     <div class="input-group bootstrap-touchspin bootstrap-touchspin-injected">
-                      <input class="form-control" type="number" min="0" [max]="selectedarticles[i].quantite" [(ngModel)]="quantities[i]" name="quantities" (ngModelChange)="updateTotalPrice(i)" />
-                      <span *ngIf="quantities[i] >= selectedarticles[i].quantite" class="text-danger">Maximum quantity reached!</span>
+                      <input class="form-control" type="number" min="0" [max]="selectedvariants[i].quantity" [(ngModel)]="quantities[i]"  name="quantities" (ngModelChange)="updateTotalPrice(i)" />
+                      <span *ngIf="quantities[i] >= selectedvariants[i].quantity" class="text-danger">Maximum quantity reached!</span>
                         
                        </div>
                     </div>
@@ -82,7 +90,7 @@
 
                   <td style="width: 90px;" class="text-center">
                     
-                      <button type="button" class="btn btn-outline-danger" (click)="removeArticle(article)" ><i class="mdi mdi-trash-can " ></i>
+                      <button type="button" class="btn btn-outline-danger" (click)="removeVariant(variantt)"><i class="mdi mdi-trash-can " ></i>
                       </button>
                     
                     

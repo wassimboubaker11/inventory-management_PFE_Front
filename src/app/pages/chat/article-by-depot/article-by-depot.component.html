@@ -22,11 +22,11 @@
                     </div>
                     </div>
                             
-                  <div>
+                  <!-- <div>
                     <a href="javascript:void(0);" class="btn btn-success mb-2" routerLink="/Kanban-board/addarticle">
                       <i class="mdi mdi-plus mr-2" ></i> Add Product
                     </a>
-                    </div>
+                    </div> -->
                   
                 </div>
                 
@@ -46,7 +46,7 @@
                     <th>Bar Code</th>
                     <th>quantity</th>
                     <th>Status</th>
-                    <th style="width: 120px;">Action</th>
+                    <!-- <th style="width: 120px;">Action</th> -->
                   </tr>
                 </thead>
                 <tbody>
@@ -73,7 +73,7 @@
                         }">{{ articlee.status ? 'In Stock' : 'Out of Stock' }}</div>
                       
                     </td>
-                    <td>
+                    <!-- <td>
                       <a href="javascript:void(0);" class="mr-2 text-primary" v-b-tooltip.hover title="View">
                         <i class="mdi mdi-eye font-size-18"></i></a>
   
@@ -84,7 +84,7 @@
                         <i class="mdi mdi-trash-can font-size-18" (click)="confirm(articlee.idarticle)" ></i></a>
                    
                         
-                    </td>
+                    </td> -->
                   </tr>
                 </tbody>
               </table>

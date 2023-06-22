@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Option } from 'src/app/core/models/option';
@@ -18,7 +19,16 @@ export class EditOptionComponent implements OnInit {
   option:Option=new Option();
   idoption:any
   sous_option:any
-  constructor(private modalService: NgbModal, private optionservice:OptionService, private route: ActivatedRoute ,private router:Router , private sousoptionservice:SousOptionService) { }
+
+  validationForm: FormGroup;
+
+  submitted: boolean = false;
+  
+  constructor(public formBuilder: FormBuilder,private modalService: NgbModal, private optionservice:OptionService, private route: ActivatedRoute ,private router:Router , private sousoptionservice:SousOptionService) { 
+    this.validationForm = this.formBuilder.group({
+      nom: ['', Validators.required]
+    });
+  }
 
   breadCrumbItems: Array<{}>;
 
@@ -29,6 +39,10 @@ export class EditOptionComponent implements OnInit {
 
     this.getoptionbyID();
     this.getallsous_optionByOption();
+    
+
+
+   
   }
   getoptionbyID(){
     this.optionservice.getoptionbyID(this.idoption).subscribe(
@@ -67,22 +81,42 @@ export class EditOptionComponent implements OnInit {
     )
   }
   openModal(content: any) {
-    this.modalService.open(content, { centered: true });
+    const modalRef = this.modalService.open(content, { centered: true });
+
+    modalRef.result.then(
+      (result) => {
+        if (result === 'close click') {
+          this.modalCloseClick();
+        }
+      },
+      (reason) => {
+        // Handle modal dismissal (if needed)
+      }
+    );
   }
-  addSousOption(){
-this.sousoptionservice.savesous_option(this.sous_optionn , this.idoption).subscribe(
-  responce=>{
-    this.ngOnInit();
-    this.modalService.dismissAll();
-    this.sous_optionn=new SousOption();
-    console.log(responce)
-    
-  },
-  err=>{
-    console.log(err)
+
+
+    addSousOption() {
+    this.submitted = true;
+    if (this.validationForm.valid) {
+      this.sousoptionservice.savesous_option(this.sous_optionn, this.idoption).subscribe(
+        responce => {
+          this.ngOnInit();
+          this.modalService.dismissAll();
+          this.sous_optionn = new SousOption();
+          console.log(responce);
+          this.submitted = false;
+          this.validationForm.reset();
+        },
+        err => {
+          console.log(err);
+        }
+      );
+    } else {
+      console.log("Form is invalid. Please fill in all required fields.");
+    }
   }
-)
-  }
+  
   
   confirm(id:any) {
     Swal.fire({
@@ -113,6 +147,11 @@ this.sousoptionservice.savesous_option(this.sous_optionn , this.idoption).subscr
       }
       
     });
+  }
+
+  modalCloseClick() {
+    this.submitted = false;
+    this.validationForm.reset();
   }
 }
 

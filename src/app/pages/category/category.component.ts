@@ -19,6 +19,8 @@ category:Category=new Category();
 
   validationForm: FormGroup;
 
+  submitted: boolean = false;
+
   constructor(private categoryservice:CategoryService,private modalService: NgbModal,public formBuilder: FormBuilder ) { 
     this.validationForm = this.formBuilder.group({ // Initialize validationForm with form controls and validators
       nom: ['', Validators.required],
@@ -37,7 +39,18 @@ category:Category=new Category();
    * @param content modal content
    */
      openModal(content: any) {
-      this.modalService.open(content, { centered: true });
+      const modalRef = this.modalService.open(content, { centered: true });
+  
+      modalRef.result.then(
+        (result) => {
+          if (result === 'close click') {
+            this.modalCloseClick();
+          }
+        },
+        (reason) => {
+          // Handle modal dismissal (if needed)
+        }
+      );
     }
 
     openModall(content: any , idcategory:any) {
@@ -67,6 +80,7 @@ category:Category=new Category();
       })
      }
      savecategory(){
+      this.submitted = true;
       if (this.validationForm.valid) {
       this.categoryservice.addcategory(this.category).subscribe(
         responce=>{
@@ -75,6 +89,8 @@ category:Category=new Category();
         this.modalService.dismissAll();
         this.category=new Category();
         this.validationForm.reset();
+        
+        this.submitted = false;
         },
         err=>{
           console.log(err)
@@ -86,6 +102,10 @@ category:Category=new Category();
       console.log("Form is invalid. Please fill in all required fields.");
     }
      }
+     modalCloseClick() {
+      this.submitted = false;
+      this.validationForm.reset();
+    }
 
      updateCategory(){
       this.categoryservice.updatedecategory(this.category , this.id).subscribe(

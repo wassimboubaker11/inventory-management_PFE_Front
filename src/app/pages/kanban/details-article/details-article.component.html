@@ -121,10 +121,15 @@
     </div>
     <div class="modal-body p-3">
       <div class="text-left">
-      <form  >
+        <form [formGroup]="validationForm" (ngSubmit)="savevariant()">
         <div class="row">
           <div class="col-md-5 offset-md-1">
-            <input  [(ngModel)]="nomvariant" name="nomvariant"  type="text" class="form-control" placeholder="Enter Name Variant">
+            <input  [(ngModel)]="nomvariant" name="nomvariant"  formControlName="nomvariant" type="text" class="form-control" placeholder="Enter Name Variant">
+            <div *ngIf="validationForm.get('nomvariant').invalid && (validationForm.get('nomvariant').touched || submitted)"class="text-danger">
+            <div *ngIf="validationForm.get('nomvariant').errors.required">
+              Name Variant is required.
+            </div>
+             </div>
           </div>
           <div class="col-md-5">
             <div class="form-group">
@@ -132,8 +137,8 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">Quantity:</span>
                 </div>
-                <input class="form-control" type="number" min="0" max="{{ maxQuantity }}" [(ngModel)]="quantity" name="quantity" />
-                      <span class="text-danger" *ngIf="quantity === maxQuantity">Maximum quantity reached!</span>
+                <input class="form-control" type="number" min="0" max="{{ maxQuantity }}" [(ngModel)]="quantity" formControlName="quantity" />
+                <span class="text-danger" *ngIf="isMaxQuantityReached()">Maximum quantity reached!</span>
               </div>
             </div>
           </div>
@@ -171,7 +176,7 @@
 
     
         <div class="text-right">
-        <button type="submit" class="btn btn-success" (click)="savevariant()">Save</button>
+        <button type="submit" class="btn btn-success" >Save</button>
         <button type="button" class="btn btn-danger ml-1" (click)="modal('close click')" >Cancel</button>
         </div>
       </form>

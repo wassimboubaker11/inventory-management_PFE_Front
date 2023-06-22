@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import bsCustomFileInput from 'bs-custom-file-input';
 import { ClientFournisseur } from 'src/app/core/models/client-fournisseur';
@@ -23,7 +24,25 @@ founisseur:ClientFournisseur=new ClientFournisseur();
 
 breadCrumbItems: Array<{}>;
 
-  constructor(private modalService: NgbModal, private clienttfournisseurservice:ClientFournisseurService) { }
+validationForm: FormGroup;
+
+submitted: boolean = false;
+
+  constructor(private modalService: NgbModal, private clienttfournisseurservice:ClientFournisseurService,public formBuilder: FormBuilder ) { 
+    this.validationForm = this.formBuilder.group({ // Initialize validationForm with form controls and validators
+      nom: ['', Validators.required],
+      email: ['', Validators.required],
+      tel: ['', Validators.required],
+      dateOfBirthday: ['', Validators.required],
+      city: ['', Validators.required],
+      address: ['', Validators.required],
+      codePostal: ['', Validators.required],
+      description: ['', Validators.required],
+      country: ['', Validators.required],
+      photo: ['', Validators.required],
+      
+    });
+  }
 
   ngOnInit(): void {
     this.breadCrumbItems = [{ label: 'Nazox' }, { label: 'Fournisseurs', active: true }];
@@ -38,8 +57,24 @@ breadCrumbItems: Array<{}>;
     openModal(content: any) {
       this.founisseur=new ClientFournisseur;
       this.selectedPicture = null;
-      this.modalService.open(content, { centered: true });
+      const modalRef = this.modalService.open(content, { centered: true });
+
+      modalRef.result.then(
+        (result) => {
+          if (result === 'close click') {
+            this.modalCloseClick();
+          }
+        },
+        (reason) => {
+          // Handle modal dismissal (if needed)
+        }
+      );
     }
+    
+  modalCloseClick() {
+    this.submitted = false;
+    this.validationForm.reset();
+  }
 
     getAllFournisseur(){
       this.clienttfournisseurservice.getAllFournisseur().subscribe(
@@ -94,6 +129,8 @@ breadCrumbItems: Array<{}>;
 
 
   saveFournisseur(){
+    this.submitted = true;
+    if (this.validationForm.valid) {
     let formData = new FormData()
 
     formData.append('fournisseur', JSON.stringify(this.founisseur));
@@ -109,6 +146,11 @@ breadCrumbItems: Array<{}>;
         console.log(err)
       }
     )
+  } else {
+    // Handle form validation errors or display a message to the user
+    // For example:
+    console.log("Form is invalid. Please fill in all required fields.");
+  }
   }
 
   UpdateFournisseur(){

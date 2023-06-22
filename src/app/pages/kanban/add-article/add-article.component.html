@@ -1,6 +1,6 @@
 
 <div class="container-fluid">
-    <app-pagetitle title="Kanban Board" [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
+    <app-pagetitle title="Save Article" [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
   
     <div class="row">
       <div class="col-lg-12">
@@ -15,24 +15,44 @@
                 <div class="form-group">
                   <label for="nom">Name :</label>
                   <input id="nom" [(ngModel)]="article.nom" formControlName="nom" type="text" class="form-control" placeholder="Enter Name Product">
+                  <div *ngIf="articleForm.get('nom').invalid && (articleForm.get('nom').touched || submitted)" class="text-danger">
+                    <div *ngIf="articleForm.get('nom').errors.required">
+                      Name is required.
+                    </div>
+                  </div>
                 </div>
                 <div class="row">
                   <div class="col-lg-4">
                     <div class="form-group">
                       <label for="ref_article">Reference :</label>
                       <input id="ref_article" [(ngModel)]="article.ref_article" formControlName="ref_article" type="text" class="form-control" placeholder="Enter Reference Product">
+                      <div *ngIf="articleForm.get('ref_article').invalid && (articleForm.get('ref_article').touched || submitted)" class="text-danger">
+                        <div *ngIf="articleForm.get('ref_article').errors.required">
+                          Reference is required.
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div class="col-lg-4">
                     <div class="form-group">
                       <label for="num_serie">Serial Number :</label>
                       <input id="num_serie" [(ngModel)]="article.num_serie" formControlName="num_serie" type="text" class="form-control" placeholder="Enter Serial Number">
+                      <div *ngIf="articleForm.get('num_serie').invalid && (articleForm.get('num_serie').touched || submitted)" class="text-danger">
+                        <div *ngIf="articleForm.get('num_serie').errors.required">
+                          Serial Number is required.
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div class="col-lg-4">
                     <div class="form-group">
                       <label for="code_barre">Bar Code :</label>
                       <input id="code_barre" [(ngModel)]="article.code_barre" formControlName="code_barre" type="text" class="form-control" placeholder="Enter Bar Code">
+                      <div *ngIf="articleForm.get('code_barre').invalid && (articleForm.get('code_barre').touched || submitted)" class="text-danger">
+                        <div *ngIf="articleForm.get('code_barre').errors.required">
+                          Bar Code is required.
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -40,19 +60,29 @@
                   <div class="col-md-4">
                     <div class="form-group">
                       <label class="control-label" >Depot :</label>
-                      <select  class="form-control select2" (change)="onDepotChange($event)" >
+                      <select  class="form-control select2" (change)="onDepotChange($event)" formControlName="depot">
                         <option value="">Select Depot</option>
                         <option *ngFor="let depots of depot" [value]="depots.iddepot" >{{depots.adresse}}</option>                        
                       </select>
+                      <div *ngIf="articleForm.get('depot').invalid && (articleForm.get('depot').touched || submitted)" class="text-danger">
+                        <div *ngIf="articleForm.get('depot').errors.required">
+                          Depot is required.
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div class="col-md-4">
                     <div class="form-group">
                       <label class="control-label" >Catgory :</label>
-                      <select  class="form-control select2" (change)="onCategoryChange($event)" >
+                      <select  class="form-control select2" (change)="onCategoryChange($event)" formControlName="category">
                         <option value="">Select Category</option>
                         <option *ngFor="let categorys of category" [value]="categorys.idcategory" >{{categorys.nom}}</option>                        
                       </select>
+                      <div *ngIf="articleForm.get('category').invalid && (articleForm.get('category').touched || submitted)" class="text-danger">
+                        <div *ngIf="articleForm.get('category').errors.required">
+                          Depot is required.
+                        </div>
+                      </div>
                     </div>
                   </div>
 
@@ -60,6 +90,11 @@
                     <div class="form-group">
                       <label for="marque">Brand :</label>
                       <input id="marque" [(ngModel)]="article.marque" formControlName="marque" type="text" class="form-control" placeholder="Enter Brand">
+                      <div *ngIf="articleForm.get('marque').invalid && (articleForm.get('marque').touched || submitted)" class="text-danger">
+                        <div *ngIf="articleForm.get('marque').errors.required">
+                          Brand is required.
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -68,18 +103,33 @@
                       <div class="form-group">
                         <label for="prixachat">Buying Price :</label>
                         <input id="prixachat" [(ngModel)]="article.prixachat" formControlName="prixachat" type="text" class="form-control" placeholder="Enter Buying Price">
+                        <div *ngIf="articleForm.get('prixachat').invalid && (articleForm.get('prixachat').touched || submitted)" class="text-danger">
+                          <div *ngIf="articleForm.get('prixachat').errors.required">
+                            Buying Price is required.
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div class="col-lg-4">
                       <div class="form-group">
                         <label for="prixvente">Sell Price :</label>
                         <input id="prixvente" [(ngModel)]="article.prixvente" formControlName="prixvente" type="text" class="form-control" placeholder="Enter Sell Price">
+                        <div *ngIf="articleForm.get('prixvente').invalid && (articleForm.get('prixvente').touched || submitted)" class="text-danger">
+                          <div *ngIf="articleForm.get('prixvente').errors.required">
+                            Sell Price is required.
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div class="col-lg-4">
                       <div class="form-group">
                         <label for="quantite">Quantity :</label>
-                        <input class="form-control" type="number" [(ngModel)]="article.quantite" formControlName="quantite" placeholder="Enter Quantity">
+                        <input class="form-control" type="number" min="0"  [(ngModel)]="article.quantite" formControlName="quantite" placeholder="Enter Quantity">
+                        <div *ngIf="articleForm.get('quantite').invalid && (articleForm.get('quantite').touched || submitted)" class="text-danger">
+                          <div *ngIf="articleForm.get('quantite').errors.required">
+                            Quantity is required.
+                          </div>
+                        </div>
                       </div>
                     </div>
                     
@@ -89,8 +139,14 @@
                     <div class="col-lg-7">
                       <label for="price">Picture :</label>
                       <div class="custom-file">
-                          <input type="file" class="custom-file-input" id="customFile"  (change)="selectpicture($event)">
-                          <label class="custom-file-label" for="customFile">Choose Picture Of Product</label>
+                          
+                        <input type="file" class="custom-file-input" id="customFile"  (change)="selectpicture($event)" formControlName="picture">
+                        <div *ngIf="articleForm.get('picture').invalid && (articleForm.get('picture').touched || submitted)" class="text-danger">
+                          <div *ngIf="articleForm.get('picture').errors.required">
+                            Picture is required.
+                          </div>
+                        </div> 
+                        <label class="custom-file-label" for="customFile">Choose Picture Of Product</label>
                         </div>
                       </div>
                       
@@ -125,6 +181,11 @@
                 <div class="form-group">
                   <label for="description">Product Description :</label>
                   <textarea class="form-control" [(ngModel)]="article.description" formControlName="description" rows="5"></textarea>
+                  <div *ngIf="articleForm.get('description').invalid && (articleForm.get('description').touched || submitted)" class="text-danger">
+                    <div *ngIf="articleForm.get('description').errors.required">
+                      Product Description is required.
+                    </div>
+                  </div>
                 </div>
 
                 <div class="button-items" >

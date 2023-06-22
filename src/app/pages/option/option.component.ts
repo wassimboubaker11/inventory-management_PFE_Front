@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Gestionaire } from 'src/app/core/models/gestionaire';
+
 import { Option } from 'src/app/core/models/option';
-import { GestionaireService } from 'src/app/core/services/gestionaire.service';
+
 import { OptionService } from 'src/app/core/services/option.service';
 import Swal from 'sweetalert2';
 
@@ -21,11 +21,15 @@ export class OptionComponent implements OnInit {
   options:any
   validationForm: FormGroup;
 
+  submitted: boolean = false;
+
   constructor(private modalService: NgbModal, private optionservice:OptionService,public formBuilder: FormBuilder ) { 
     this.validationForm = this.formBuilder.group({ // Initialize validationForm with form controls and validators
     nom: ['', Validators.required],
     
-  });}
+    
+  });
+}
 
   ngOnInit(): void {
     this.breadCrumbItems = [{ label: 'Nazox' }, { label: 'Option', active: true }];
@@ -38,10 +42,22 @@ export class OptionComponent implements OnInit {
    * Modal Open
    * @param content modal content
    */
-  openModal(content: any) {
-    this.modalService.open(content, { centered: true });
+   openModal(content: any) {
+    const modalRef = this.modalService.open(content, { centered: true });
+
+    modalRef.result.then(
+      (result) => {
+        if (result === 'close click') {
+          this.modalCloseClick();
+        }
+      },
+      (reason) => {
+        // Handle modal dismissal (if needed)
+      }
+    );
   }
   saveOption(){
+    this.submitted = true;
     if (this.validationForm.valid) {
     this.optionservice.saveoption(this.option).subscribe(
       responce=>{
@@ -49,6 +65,8 @@ export class OptionComponent implements OnInit {
         this.ngOnInit();
         this.modalService.dismissAll();
         this.validationForm.reset();
+        this.submitted = false;
+         
       },
       err=>{console.log(err)}
     )
@@ -99,6 +117,11 @@ export class OptionComponent implements OnInit {
       
     });
 
+}
+
+modalCloseClick() {
+  this.submitted = false;
+  this.validationForm.reset();
 }
 
 

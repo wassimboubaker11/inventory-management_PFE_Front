@@ -95,46 +95,46 @@
 		<form [formGroup]="validationForm" (ngSubmit)="saveDepot()">
 		  <div class="form">
 			<label for="name">Name:</label>
-			<input class="form-control" type="text" [(ngModel)]="depot.nom" formControlName="nom" id="name" placeholder="Enter name">
-			<div *ngIf="validationForm.get('nom').invalid && validationForm.get('nom').touched" class="text-danger">
+			<input class="form-control" type="text" [(ngModel)]="depot.nom" formControlName="nom" name="nom" placeholder="Enter name">
+			<div *ngIf="validationForm.get('nom').invalid && (validationForm.get('nom').touched || submitted)" class="text-danger">
 				<div *ngIf="validationForm.get('nom').errors.required">
-			  Name is required.
-			</div>
-			</div>
+				  Name is required.
+				</div>
+			  </div>
 		  </div>
   
 		  <div class="form">
 			<label for="address">Address:</label>
-			<input class="form-control" type="text" [(ngModel)]="depot.adresse" formControlName="adresse" placeholder="Enter address">
-			<div *ngIf="validationForm.get('adresse').invalid && validationForm.get('adresse').touched" class="text-danger">
+			<input class="form-control" type="text" [(ngModel)]="depot.adresse" formControlName="adresse" name="adresse" placeholder="Enter address">
+			<div *ngIf="validationForm.get('adresse').invalid && (validationForm.get('adresse').touched || submitted)" class="text-danger">
 				<div *ngIf="validationForm.get('adresse').errors.required">
-				Address is required.
-			</div>
-			</div>
+					Address is required.
+				</div>
+			  </div>
 		  </div>
   
 		  <div class="form">
 			<label>Number:</label>
-			<input class="form-control" type="number" [(ngModel)]="depot.numero" formControlName="numero" placeholder="Enter number">
-			<div *ngIf="validationForm.get('numero').invalid && validationForm.get('numero').touched" class="text-danger">
+			<input class="form-control" type="number" [(ngModel)]="depot.numero" formControlName="numero" name="numero" placeholder="Enter number">
+			<div *ngIf="validationForm.get('numero').invalid && (validationForm.get('numero').touched || submitted)" class="text-danger">
 				<div *ngIf="validationForm.get('numero').errors.required">
-			  Number is required.
-			</div>
-			</div>
+					Number is required.
+				</div>
+			  </div>
 		  </div>
   
 		  <div class="form-group">
 			<label>Date:</label>
-			<input class="form-control" type="date" [(ngModel)]="depot.datecreation" formControlName="datecreation">
-			<div *ngIf="validationForm.get('datecreation').invalid && validationForm.get('datecreation').touched" class="text-danger">
+			<input class="form-control" type="date" [(ngModel)]="depot.datecreation" name="datecreation" formControlName="datecreation">
+			<div *ngIf="validationForm.get('datecreation').invalid && (validationForm.get('datecreation').touched || submitted)" class="text-danger">
 				<div *ngIf="validationForm.get('datecreation').errors.required">
-				Date is required.
-			</div>
-			</div>
+					Date is required.
+				</div>
+			  </div>
 		  </div>
   
 		  <div class="text-right">
-			<button type="submit" class="btn btn-success" [disabled]="validationForm.invalid">Save</button>
+			<button type="submit" class="btn btn-success" >Save</button>
 			<button type="button" class="btn btn-danger ml-1" (click)="modal('close click')">Cancel</button>
 		  </div>
 		</form>

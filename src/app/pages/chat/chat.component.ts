@@ -34,6 +34,8 @@ export class ChatComponent implements OnInit {
 
   validationForm: FormGroup;
 
+  submitted: boolean = false;
+
   constructor(private modalService: NgbModal,public formBuilder: FormBuilder , private router:Router , private depotservice:DepotService) {
   
     this.validationForm = this.formBuilder.group({ // Initialize validationForm with form controls and validators
@@ -70,12 +72,24 @@ export class ChatComponent implements OnInit {
    */
 
     openModal(content: any) {
-      this.modalService.open(content, { centered: true });
+      const modalRef = this.modalService.open(content, { centered: true });
+  
+      modalRef.result.then(
+        (result) => {
+          if (result === 'close click') {
+            this.modalCloseClick();
+          }
+        },
+        (reason) => {
+          // Handle modal dismissal (if needed)
+        }
+      );
     }
 
     openModall(contentt: any , iddepot:any) {
       this.modalService.open(contentt, { centered: true });
       this.id = iddepot;
+      
       this.depotservice.getdepotbyid(this.id).subscribe(
         responce=>{
           this.depot = responce;
@@ -88,6 +102,7 @@ export class ChatComponent implements OnInit {
     }
 
     saveDepot() {
+      this.submitted = true;
       if (this.validationForm.valid) {
         this.depotservice.adddepot(this.depot).subscribe(
           response => {
@@ -97,6 +112,7 @@ export class ChatComponent implements OnInit {
             this.modalService.dismissAll();
             this.validationForm.reset();
             
+             this.submitted = false;
           },
           error => {
             console.log(error);
@@ -165,6 +181,11 @@ export class ChatComponent implements OnInit {
         
       });
 
+  }
+
+  modalCloseClick() {
+    this.submitted = false;
+    this.validationForm.reset();
   }
   
 }

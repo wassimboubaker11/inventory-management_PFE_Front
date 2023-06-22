@@ -31,10 +31,12 @@ selectedPicture: any;
   
 breadCrumbItems: Array<{}>;
 
+submitted: boolean = false;
+
 constructor( private articleservice:ArticleService , private formBuilder: FormBuilder, private router: Router , private depotservice:DepotService, private categoryservice:CategoryService) { }
 
   ngOnInit(): void {
-    this.breadCrumbItems = [{ label: 'Nazox' }, { label: 'Kanban Board', active: true }];
+    this.breadCrumbItems = [{ label: 'Nazox' }, { label: 'Article', active: true }];
 
     bsCustomFileInput.init();
 
@@ -56,6 +58,7 @@ constructor( private articleservice:ArticleService , private formBuilder: FormBu
       picture: ['', Validators.required],
       status: ['', Validators.required],
       depot : ['', Validators.required],
+      category : ['', Validators.required],
 
     });
 
@@ -71,6 +74,8 @@ onDepotChange(event): void {
   console.log('Selected depot ID:', this.depotId);
 }
 savearticle(){
+  this.submitted = true;
+    if (this.articleForm.valid) {
   let formData = new FormData()
   
   formData.append('article', JSON.stringify(this.article));
@@ -78,7 +83,9 @@ savearticle(){
   this.articleservice.savearticle(formData , this.depotId , this.categoryId).subscribe(
     responce=>{
       console.log(responce)
+      this.articleForm.reset();
       this.router.navigate(['/kanban-board']); 
+
       
     },
     err=>{
@@ -86,6 +93,11 @@ savearticle(){
       
     }
   )
+} else {
+  // Handle form validation errors or display a message to the user
+  // For example:
+  console.log("Form is invalid. Please fill in all required fields.");
+}
 }
 // setArticleStatus(status: boolean) {
 //   this.article.status = status;

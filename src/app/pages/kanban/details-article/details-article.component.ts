@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Variant } from 'src/app/core/models/variant';
@@ -26,15 +26,25 @@ maxQuantity: number;
   option:any
 
   picture:any
-
+  submitted: boolean = false;
   nomvariant:any
+
+  validationForm: FormGroup;
 
  variant:Variant = new Variant();
  @Input() variants: any[];
 
   selectedSubOptions: number[] = [];
 
-  constructor(private variantservice:VariantService,private optionservice:OptionService,private modalService: NgbModal,private router:Router , private formBuilder: FormBuilder,private articleservice : ArticleService , private route: ActivatedRoute) { }
+  constructor(private variantservice:VariantService,private optionservice:OptionService,private modalService: NgbModal,private router:Router , private formBuilder: FormBuilder,private articleservice : ArticleService , private route: ActivatedRoute) {
+    this.validationForm = this.formBuilder.group({ // Initialize validationForm with form controls and validators
+      nomvariant: ['', Validators.required],
+      
+      quantity: [null, [Validators.required, Validators.min(0), Validators.max(this.maxQuantity)]],
+      
+      
+    });
+   }
 
   ngOnInit(): void {
     this.breadCrumbItems = [{ label: 'Nazox' }, { label: 'Details', active: true }];
@@ -66,14 +76,32 @@ maxQuantity: number;
     const totalQuantity = this.variants.reduce((total, variant) => total + variant.quantity, 0);
     this.maxQuantity = this.article.quantite - totalQuantity;
   }
+  isMaxQuantityReached(): boolean {
+    return this.quantity === this.maxQuantity;
+  }
+  
 
   openModal(content: any) {
     this.calculateMaxQuantity();
     this.getAlloption();
-    this.modalService.open(content, { centered: true });
+    const modalRef = this.modalService.open(content, { centered: true });
     this.quantity=null;
     this.selectedSubOptions = [];
     this.nomvariant=null;
+    modalRef.result.then(
+      (result) => {
+        if (result === 'close click') {
+          this.modalCloseClick();
+        }
+      },
+      (reason) => {
+        // Handle modal dismissal (if needed)
+      }
+    );
+  }
+  modalCloseClick() {
+    this.submitted = false;
+    this.validationForm.reset();
   }
 
   getAlloption(){
@@ -90,6 +118,8 @@ maxQuantity: number;
   }
 
   savevariant(){
+    this.submitted = true;
+    if (this.validationForm.valid) {
     const request = { sousOptions: this.selectedSubOptions , quantity:this.quantity , nom:this.nomvariant };
     this.variantservice.addvariant(request,this.idarticle).subscribe(
       responce=>{
@@ -101,12 +131,18 @@ maxQuantity: number;
         this.quantity=null;
         this.selectedSubOptions = [];
         this.nomvariant=null;
+        this.validationForm.reset();
+        this.submitted = false;
       },
       err=>{
         console.log(err)
       }
     )
-
+  } else {
+    // Handle form validation errors or display a message to the user
+    // For example:
+    console.log("Form is invalid. Please fill in all required fields.");
+  }
     
   }
 
@@ -159,6 +195,8 @@ maxQuantity: number;
       
     });
   }
+
+  
 
   
 }

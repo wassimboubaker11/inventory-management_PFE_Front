@@ -25,11 +25,12 @@ export class AddUserComponent implements OnInit {
 
   breadCrumbItems: Array<{}>;
 
-  constructor(private router: Router , private formBuilder: FormBuilder , private gestionaireservice:GestionaireService, private adminservice:AdminService) { }
+  validationForm: FormGroup;
 
-  ngOnInit(): void {
-
-    this.gestionaireForm = this.formBuilder.group({
+  submitted: boolean = false;
+  
+  constructor(private router: Router , private formBuilder: FormBuilder , private gestionaireservice:GestionaireService, private adminservice:AdminService) {
+    this.validationForm = this.formBuilder.group({
       name: ['', Validators.required],
       email: ['', Validators.required],
       cin: ['', Validators.required],
@@ -44,6 +45,11 @@ export class AddUserComponent implements OnInit {
       
       
     });
+   }
+
+  ngOnInit(): void {
+
+    
 
     this.breadCrumbItems = [{ label: 'Nazox' }, { label: 'User', active: true }];
 
@@ -69,6 +75,8 @@ export class AddUserComponent implements OnInit {
   }
 
   saveGestionaire(){
+    this.submitted = true;
+    if (this.validationForm.valid) {
     let formData = new FormData()
 
     formData.append('user', JSON.stringify(this.gestionaire));
@@ -76,6 +84,8 @@ export class AddUserComponent implements OnInit {
   this.gestionaireservice.savegestionaire(formData , this.idadmin).subscribe(
     responce=>{
       console.log(responce)
+      this.validationForm.reset();
+      this.submitted = false;
       this.router.navigate(['/user']); 
       
     },
@@ -84,6 +94,11 @@ export class AddUserComponent implements OnInit {
       
     }
   )
+} else {
+  // Handle form validation errors or display a message to the user
+  // For example:
+  console.log("Form is invalid. Please fill in all required fields.");
+}
   }
 
   getUserDATAFromToken(){

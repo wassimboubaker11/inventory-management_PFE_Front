@@ -68,36 +68,53 @@
 	</div>
 	<div class="modal-body p-3">
 	  <div class="text-left">
-		<form (ngSubmit)="saveFournisseur()" >
+		<form [formGroup]="validationForm" (ngSubmit)="saveFournisseur()" >
   
 		  <div class="form-group">
 			<label for="name">Name :</label>
-			<input class="form-control" type="text" [(ngModel)]="founisseur.nom" name="nom" id="name" placeholder="Enter name" 
-			  >
-			
+			<input class="form-control" type="text" [(ngModel)]="founisseur.nom" formControlName="nom" name="nom" id="name" placeholder="Enter name" >
+			<div *ngIf="validationForm.get('nom').invalid && (validationForm.get('nom').touched || submitted)" class="text-danger">
+        <div *ngIf="validationForm.get('nom').errors.required">
+          Name is required.
+        </div>
+      </div>
 		  </div>
   
 		  <div class="form-group">
 			<label for="email">Email :</label>
-			<input class="form-control" [(ngModel)]="founisseur.email" name="email" placeholder="Enter email" >
-			
+			<input class="form-control" [(ngModel)]="founisseur.email" name="email" formControlName="email" placeholder="Enter email" >
+			<div *ngIf="validationForm.get('email').invalid && (validationForm.get('email').touched || submitted)" class="text-danger">
+        <div *ngIf="validationForm.get('email').errors.required">
+          Email is required.
+        </div>
+      </div>
 		  </div>
   
 		  <div class="form-group">
 			<label>Number :</label>
-			<input class="form-control" type="number" [(ngModel)]="founisseur.tel" name="tel" placeholder="Enter number">
-		  </div>
+			<input class="form-control" type="number" [(ngModel)]="founisseur.tel" name="tel" formControlName="tel" placeholder="Enter number">
+      <div *ngIf="validationForm.get('tel').invalid && (validationForm.get('tel').touched || submitted)" class="text-danger">
+        <div *ngIf="validationForm.get('tel').errors.required">
+          Number is required.
+        </div>
+      </div>  
+    </div>
   
 
   
 		  <div class="form-group">
 			<label>Date :</label>
-			<input class="form-control" [(ngModel)]="founisseur.dateOfBirthday" name="dateOfBirthday" type="date"  >
-		  </div>
+			<input class="form-control" [(ngModel)]="founisseur.dateOfBirthday" name="dateOfBirthday" formControlName="dateOfBirthday" type="date"  >
+      <div *ngIf="validationForm.get('dateOfBirthday').invalid && (validationForm.get('dateOfBirthday').touched || submitted)" class="text-danger">
+        <div *ngIf="validationForm.get('dateOfBirthday').errors.required">
+          Date of birthday is required.
+        </div>
+      </div> 
+    </div>
 
       <div class="form-group">
         <label>Country</label>
-        <select class="form-control custom-select" title="Country" (change)="choosecontry($event)">
+        <select class="form-control custom-select" title="Country" (change)="choosecontry($event)" formControlName="dateOfBirthday">
           <option value="0">Select Country</option>
           <option value="Afghanistan">Afghanistan</option>
           <option value="Albania">Albania</option>
@@ -319,28 +336,53 @@
           <option value="Zambia">Zambia</option>
           <option value="Zimbabwe">Zimbabwe</option>
         </select>
+        <div *ngIf="validationForm.get('country').invalid && (validationForm.get('country').touched || submitted)" class="text-danger">
+          <div *ngIf="validationForm.get('country').errors.required">
+            Country is required.
+          </div>
+        </div>
       </div>
 
       <div class="form-group">
         <label for="city">City :</label>
-        <input  [(ngModel)]="founisseur.city"  name="city" type="text" class="form-control" placeholder="Enter City">
+        <input  [(ngModel)]="founisseur.city"  name="city" type="text" class="form-control" placeholder="Enter City" formControlName="city">
+        <div *ngIf="validationForm.get('city').invalid && (validationForm.get('city').touched || submitted)" class="text-danger">
+          <div *ngIf="validationForm.get('city').errors.required">
+            City is required.
+          </div>
+        </div>
       </div>
 
       <div class="form-group">
         <label for="address">Address :</label>
-        <input  [(ngModel)]="founisseur.address" name="adress" type="text" class="form-control" placeholder="Enter address">
+        <input  [(ngModel)]="founisseur.address" name="adress" type="text" formControlName="address" class="form-control" placeholder="Enter address">
+        <div *ngIf="validationForm.get('address').invalid && (validationForm.get('address').touched || submitted)" class="text-danger">
+          <div *ngIf="validationForm.get('address').errors.required">
+            Address is required.
+          </div>
+        </div>
       </div>
 
       <div class="form-group ">
         <label for="codePostal">Zip / Postal code :</label>
-        <input  [(ngModel)]="founisseur.codePostal" name="codePostal" type="text" class="form-control" placeholder="Enter Postal code">
+        <input  [(ngModel)]="founisseur.codePostal" name="codePostal" type="text" class="form-control" formControlName="codePostal" placeholder="Enter Postal code">
+        <div *ngIf="validationForm.get('codePostal').invalid && (validationForm.get('codePostal').touched || submitted)" class="text-danger">
+          <div *ngIf="validationForm.get('codePostal').errors.required">
+            Zip / Postal code is required.
+          </div>
+        </div>
       </div>
 
       <div class="form-group ">
         <label >Picture :</label>
         <div class="custom-file">
-        <input type="file" class="custom-file-input" id="customFile"  (change)="selectpicture($event)">
-         <label class="custom-file-label" for="customFile">Choose picture </label>
+        <input type="file" class="custom-file-input" id="customFile"  (change)="selectpicture($event)" formControlName="photo">
+        <div *ngIf="validationForm.get('photo').invalid && (validationForm.get('photo').touched || submitted)" class="text-danger">
+          <div *ngIf="validationForm.get('photo').errors.required">
+            Picture is required.
+          </div>
+        </div>
+        <label class="custom-file-label" for="customFile">Choose picture </label>
          </div>
         </div>
 
@@ -352,7 +394,12 @@
         
       <div class="form-group">
         <label for="description">Description :</label>
-        <textarea class="form-control" [(ngModel)]="founisseur.description" name="description" rows="5"></textarea>
+        <textarea class="form-control" [(ngModel)]="founisseur.description" formControlName="description" name="description" rows="5"></textarea>
+        <div *ngIf="validationForm.get('description').invalid && (validationForm.get('description').touched || submitted)" class="text-danger">
+          <div *ngIf="validationForm.get('description').errors.required">
+            Description is required.
+          </div>
+        </div>
       </div>
 
       

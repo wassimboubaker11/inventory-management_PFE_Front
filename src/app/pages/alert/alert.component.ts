@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Alert } from 'src/app/core/models/alert';
 import { AlertService } from 'src/app/core/services/alert.service';
@@ -16,9 +17,22 @@ export class AlertComponent implements OnInit {
   alerts:any
 
   articleOutAlert:any
-idarticleselect:any
+  idarticleselect:any
   breadCrumbItems: Array<{}>;
-  constructor(private modalService: NgbModal, private alertservice:AlertService , private articleservice:ArticleService) { }
+
+  submitted: boolean = false;
+  validationForm: FormGroup;
+
+  constructor(private modalService: NgbModal, private alertservice:AlertService , private articleservice:ArticleService ,public formBuilder: FormBuilder ) {
+    this.validationForm = this.formBuilder.group({ // Initialize validationForm with form controls and validators
+      nom: ['', Validators.required],
+      Idarticle: ['', Validators.required],
+      quanityMax: ['', Validators.required],
+    quanityMuni: ['', Validators.required],
+      
+    });
+
+   }
 
   ngOnInit(): void {
     this.breadCrumbItems = [{ label: 'Nazox' }, { label: 'Option', active: true }];
@@ -30,7 +44,18 @@ idarticleselect:any
    * @param content modal content
    */
      openModal(content: any) {
-      this.modalService.open(content, { centered: true });
+      const modalRef = this.modalService.open(content, { centered: true });
+
+      modalRef.result.then(
+        (result) => {
+          if (result === 'close click') {
+            this.modalCloseClick();
+          }
+        },
+        (reason) => {
+          // Handle modal dismissal (if needed)
+        }
+      );
       this.getAllArticlewithOutAlert();
     }
 
@@ -38,6 +63,12 @@ idarticleselect:any
       this.idarticleselect = event.target.value;
       console.log('Selected depot ID:', this.idarticleselect);
     }
+
+    modalCloseClick() {
+      this.submitted = false;
+      this.validationForm.reset();
+    }
+    
 
     getallalerts(){
       this.alertservice.getallalert().subscribe(
@@ -63,6 +94,8 @@ idarticleselect:any
     }
 
     saveAlert(){
+      this.submitted = true;
+    if (this.validationForm.valid) {
     this.alertservice.savealert(this.alert , this.idarticleselect).subscribe(
       response=>{
         this.ngOnInit();
@@ -74,6 +107,11 @@ idarticleselect:any
         console.log(err)
       }
     )
+  } else {
+    // Handle form validation errors or display a message to the user
+    // For example:
+    console.log("Form is invalid. Please fill in all required fields.");
+  }
     }
 
 

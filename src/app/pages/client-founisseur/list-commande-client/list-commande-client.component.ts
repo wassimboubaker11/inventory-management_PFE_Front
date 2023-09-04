@@ -34,7 +34,7 @@ totalArticlesHT: number = 0;
   constructor(private modalService: NgbModal , private commandeservice:CommandeService, private mvtservice:MvtService , private factureservice:FactureService) { }
 
   ngOnInit(): void {
-    this.breadCrumbItems = [{ label: 'Nazox' }, { label: 'Commandes Clients', active: true }];
+    this.breadCrumbItems = [{ label: 'Wind' }, { label: 'customer orders', active: true }];
 
     this.getAllCommandesClient();
   }
@@ -177,7 +177,7 @@ totalArticlesHT: number = 0;
             }
           )
         
-        Swal.fire('Deleted!', 'company has been deleted.', 'success');
+        Swal.fire('Deleted!', 'Order has been deleted.', 'success');
         
       }
       

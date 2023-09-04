@@ -1,6 +1,6 @@
 
 <div class="container-fluid">
-    <app-pagetitle title="Kanban Board" [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
+    <app-pagetitle title="Add stock manager" [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
   
     <div class="row">
       <div class="col-lg-12">
@@ -90,6 +90,13 @@
                           </div> 
                           <label class="custom-file-label" for="customFile">Choose picture </label>
                         </div>
+
+                        <div class="col-lg-4">
+                          <div *ngIf="selectedPicture" class="mt-3">
+                            <img [src]="selectedPicture" alt="Selected Picture" class="img-thumbnail" style="max-width: 100px;">
+                          </div>
+                        </div>
+                        
                       </div>
 
                       <div class="col-lg-5">

@@ -50,7 +50,7 @@ export class DashboardComponent implements OnInit {
   };
 
   ngOnInit(): void {
-    this.breadCrumbItems = [{ label: 'Nazox' }, { label: 'Dashboard', active: true }];
+    this.breadCrumbItems = [{ label: 'Wind' }, { label: 'Dashboard', active: true }];
     this.formData = this.formBuilder.group({
       message: ['', [Validators.required]],
     });

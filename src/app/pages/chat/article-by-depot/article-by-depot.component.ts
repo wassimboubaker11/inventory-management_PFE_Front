@@ -30,7 +30,7 @@ id:any
  
    ngOnInit(): void {
     this.id = this.act.snapshot.paramMap.get('id')
-     this.breadCrumbItems = [{ label: 'Nazox' }, { label: 'Kanban Board', active: true }];
+     this.breadCrumbItems = [{ label: 'Wind' }, { label: 'Products', active: true }];
      this.getallarticlebyiddepot();
      
    }

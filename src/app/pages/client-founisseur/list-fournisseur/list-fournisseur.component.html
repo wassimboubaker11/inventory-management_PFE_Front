@@ -1,11 +1,11 @@
 <div class="container-fluid">
-    <app-pagetitle title="Fournisseurs" [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
+    <app-pagetitle title="Suppliers" [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
   
     <div class="row">
       <div class="col-12">
         <div class="text-right mb-3">
           <a href="javascript:void(0);" class="btn btn-success mb-2" (click)="openModal(content)">
-            <i class="mdi mdi-plus mr-2"></i> Add founisseur
+            <i class="mdi mdi-plus mr-2"></i> Add Supplier
           </a>
         </div>
       </div>
@@ -61,7 +61,7 @@
   <!-- Contacts model  -->
 <ng-template #content role="document" let-modal="close">
 	<div class="modal-header">
-	  <h5 class="modal-title">Add Fournisseurs</h5>
+	  <h5 class="modal-title">Add Supplier</h5>
 	  <button type="button" class="close" aria-label="Close" (click)="modal('Cross click')">
 		<span aria-hidden="true">&times;</span>
 	  </button>
@@ -103,7 +103,7 @@
 
   
 		  <div class="form-group">
-			<label>Date :</label>
+			<label>Date of Birthday :</label>
 			<input class="form-control" [(ngModel)]="founisseur.dateOfBirthday" name="dateOfBirthday" formControlName="dateOfBirthday" type="date"  >
       <div *ngIf="validationForm.get('dateOfBirthday').invalid && (validationForm.get('dateOfBirthday').touched || submitted)" class="text-danger">
         <div *ngIf="validationForm.get('dateOfBirthday').errors.required">
@@ -114,7 +114,7 @@
 
       <div class="form-group">
         <label>Country</label>
-        <select class="form-control custom-select" title="Country" (change)="choosecontry($event)" formControlName="dateOfBirthday">
+        <select class="form-control custom-select" title="Country" (change)="choosecontry($event)" formControlName="country">
           <option value="0">Select Country</option>
           <option value="Afghanistan">Afghanistan</option>
           <option value="Albania">Albania</option>

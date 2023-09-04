@@ -6,6 +6,7 @@ import { Article } from 'src/app/core/models/article';
 import { ArticleService } from 'src/app/core/services/article.service';
 import { CategoryService } from 'src/app/core/services/category.service';
 import { DepotService } from 'src/app/core/services/depot.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-article',
@@ -36,7 +37,7 @@ submitted: boolean = false;
 constructor( private articleservice:ArticleService , private formBuilder: FormBuilder, private router: Router , private depotservice:DepotService, private categoryservice:CategoryService) { }
 
   ngOnInit(): void {
-    this.breadCrumbItems = [{ label: 'Nazox' }, { label: 'Article', active: true }];
+    this.breadCrumbItems = [{ label: 'Wind' }, { label: 'Add Product', active: true }];
 
     bsCustomFileInput.init();
 
@@ -56,7 +57,6 @@ constructor( private articleservice:ArticleService , private formBuilder: FormBu
       quantite: ['', Validators.required],
       description: ['', Validators.required],
       picture: ['', Validators.required],
-      status: ['', Validators.required],
       depot : ['', Validators.required],
       category : ['', Validators.required],
 
@@ -73,6 +73,15 @@ onDepotChange(event): void {
   this.depotId = event.target.value;
   console.log('Selected depot ID:', this.depotId);
 }
+alert(){
+  Swal.fire({
+    position: 'top-end',
+    icon: 'success',
+    title: 'Your work has been saved',
+    showConfirmButton: false,
+    timer: 1300
+  });
+}
 savearticle(){
   this.submitted = true;
     if (this.articleForm.valid) {
@@ -85,7 +94,7 @@ savearticle(){
       console.log(responce)
       this.articleForm.reset();
       this.router.navigate(['/kanban-board']); 
-
+      this.alert();
       
     },
     err=>{

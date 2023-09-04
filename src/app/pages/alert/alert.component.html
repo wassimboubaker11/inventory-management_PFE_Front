@@ -33,9 +33,9 @@
                  
                     
                     <th> Article</th>
-                    <th> quantité instantané</th>
-                    <th> Quantité minimale</th>
-                    <th> Quantité maximale</th>
+                    <th> instant quantity</th>
+                    <th> Minimum quantity</th>
+                    <th> Maximum quantity</th>
                     <th style="width: 120px;">Action</th>
                   </tr>
                 </thead>
@@ -93,7 +93,7 @@
       </div>
 
       <div class="form">
-        <label>Quantité minimale :</label>
+        <label>Minimum quantity :</label>
         <input class="form-control" type="number" min="0"  [(ngModel)]="alert.quanityMuni" formControlName="quanityMuni" name="quanityMuni" placeholder="Enter number">
         <div *ngIf="validationForm.get('quanityMuni').invalid && (validationForm.get('quanityMuni').touched || submitted)" class="text-danger">
           <div *ngIf="validationForm.get('quanityMuni').errors.required">
@@ -103,7 +103,7 @@
       </div>
   
         <div class="form">
-          <label>Quantité maximale :</label>
+          <label>Maximum quantity :</label>
           <input class="form-control" type="number" min="0"  [(ngModel)]="alert.quanityMax" formControlName="quanityMax" name="quanityMax" placeholder="Enter number">
           <div *ngIf="validationForm.get('quanityMax').invalid && (validationForm.get('quanityMax').touched || submitted)" class="text-danger">
             <div *ngIf="validationForm.get('quanityMax').errors.required">

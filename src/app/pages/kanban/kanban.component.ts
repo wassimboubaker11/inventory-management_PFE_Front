@@ -29,10 +29,20 @@ export class KanbanComponent implements OnInit {
   constructor(private modalService: NgbModal,private articleservice : ArticleService , config: NgbPaginationConfig) {  config.size = 'sm'; config.boundaryLinks = true; config.maxSize = 10;}
 
   ngOnInit(): void {
-    this.breadCrumbItems = [{ label: 'Nazox' }, { label: 'Products', active: true }];
+    this.breadCrumbItems = [{ label: 'Wind' }, { label: 'Products', active: true }];
     this.getallarticle();
     
   }
+
+   alert(){
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Your work has been saved',
+        showConfirmButton: false,
+        timer: 1300
+      });
+    }
   searchDepots() {
     if (this.searchQuery) {
       this.article = this.article.filter((depot) => {
@@ -87,7 +97,7 @@ export class KanbanComponent implements OnInit {
             }
           )
         
-        Swal.fire('Deleted!', 'company has been deleted.', 'success');
+        Swal.fire('Deleted!', 'Product has been deleted.', 'success');
         
       }
       

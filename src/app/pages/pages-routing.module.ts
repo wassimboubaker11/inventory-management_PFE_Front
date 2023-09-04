@@ -17,6 +17,7 @@ import { CategoryComponent } from './category/category.component';
 import { EditOptionComponent } from './option/edit-option/edit-option.component';
 import { AlertComponent } from './alert/alert.component';
 
+
 const routes: Routes = [
     { path: '', component: DashboardComponent },
     { path: 'calendar', component: CalendarComponent },
@@ -29,6 +30,7 @@ const routes: Routes = [
     {path:  'option' , component:OptionComponent},
      {path: 'edit-option/:id', component:EditOptionComponent},
     {path:  'user' , component:UserComponent},
+    
     {path:  'user/adduser' , component:AddUserComponent},
     {path:  'category' , component:CategoryComponent},
     {path : 'alert' , component:AlertComponent},

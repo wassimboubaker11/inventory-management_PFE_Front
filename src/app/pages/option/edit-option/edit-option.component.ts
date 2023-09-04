@@ -6,7 +6,7 @@ import { Option } from 'src/app/core/models/option';
 import { SousOption } from 'src/app/core/models/sous-option';
 import { OptionService } from 'src/app/core/services/option.service';
 import { SousOptionService } from 'src/app/core/services/sous-option.service';
-import { VariantService } from 'src/app/core/services/variant.service';
+
 import Swal from 'sweetalert2';
 
 @Component({
@@ -33,16 +33,22 @@ export class EditOptionComponent implements OnInit {
   breadCrumbItems: Array<{}>;
 
   ngOnInit(): void {
-    this.breadCrumbItems = [{ label: 'Nazox' }, { label: 'Option', active: true }];
+    this.breadCrumbItems = [{ label: 'Wind' }, { label: 'Update Option', active: true }];
     this.idoption = this.route.snapshot.paramMap.get('id')
     console.log(this.idoption)
 
     this.getoptionbyID();
     this.getallsous_optionByOption();
-    
-
-
    
+  }
+  alert(){
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'Your work has been saved',
+      showConfirmButton: false,
+      timer: 1100
+    });
   }
   getoptionbyID(){
     this.optionservice.getoptionbyID(this.idoption).subscribe(
@@ -74,6 +80,7 @@ export class EditOptionComponent implements OnInit {
       responce=>{
         console.log(responce)
         this.router.navigate(['/option']); 
+        this.alert();
       },
       err=>{
         console.log(err)
@@ -107,6 +114,7 @@ export class EditOptionComponent implements OnInit {
           console.log(responce);
           this.submitted = false;
           this.validationForm.reset();
+          this.alert();
         },
         err => {
           console.log(err);
@@ -142,7 +150,7 @@ export class EditOptionComponent implements OnInit {
             }
           )
         
-        Swal.fire('Deleted!', 'company has been deleted.', 'success');
+        Swal.fire('Deleted!', 'Sous_Option has been deleted.', 'success');
         
       }
       

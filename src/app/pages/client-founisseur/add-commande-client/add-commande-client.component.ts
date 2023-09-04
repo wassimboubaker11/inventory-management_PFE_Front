@@ -12,6 +12,7 @@ import { ArticleService } from 'src/app/core/services/article.service';
 import { ClientFournisseurService } from 'src/app/core/services/client-fournisseur.service';
 import { CommandeService } from 'src/app/core/services/commande.service';
 import { VariantService } from 'src/app/core/services/variant.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-commande-client',
@@ -46,7 +47,7 @@ breadCrumbItems: Array<{}>;
 
 
   constructor(private clientservice:ClientFournisseurService, private router: Router,private fb: FormBuilder, private http: HttpClient, private commande:CommandeService, private articleservice:ArticleService,private variantservice:VariantService) {
-    this.breadCrumbItems = [{ label: 'Nazox' }, { label: 'Commande', active: true }];
+    this.breadCrumbItems = [{ label: 'Wind' }, { label: 'Add Order', active: true }];
     this.commandeForm = this.fb.group({orderItems: this.fb.array([this.createOrderItemForm()]),
     });
    }
@@ -54,6 +55,15 @@ breadCrumbItems: Array<{}>;
   ngOnInit(): void {
     this.getAllarticle();
     this.getallClient();
+  }
+  alert(){
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'Your work has been saved',
+      showConfirmButton: false,
+      timer: 1500
+    });
   }
 
   getvariantsbyidarticle(id: any) {
@@ -225,12 +235,14 @@ saveCommande(): void {
       this.selectedvariants = [];
       this.quantities = [];
       this.router.navigate(['/tier/listcommandeclient']);
+      this.alert();
     },
     error => {
       console.log("Error saving commande:", error);
      this.selectedvariants = [];
       this.quantities = [];
       this.router.navigate(['/tier/listcommandeclient']);
+      this.alert();
     }
   );
 }

@@ -20,7 +20,7 @@ export class HistoriqueComponent implements OnInit {
   constructor(private mvtservice:MvtService,private datePipe: DatePipe) { }
 
   ngOnInit(): void {
-    this.breadCrumbItems = [{ label: 'Nazox' }, { label: 'Historique', active: true }];
+    this.breadCrumbItems = [{ label: 'Wind' }, { label: 'History', active: true }];
     this.getAllMVT();
 
     

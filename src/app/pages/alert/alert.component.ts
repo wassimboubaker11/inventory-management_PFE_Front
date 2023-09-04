@@ -25,7 +25,7 @@ export class AlertComponent implements OnInit {
 
   constructor(private modalService: NgbModal, private alertservice:AlertService , private articleservice:ArticleService ,public formBuilder: FormBuilder ) {
     this.validationForm = this.formBuilder.group({ // Initialize validationForm with form controls and validators
-      nom: ['', Validators.required],
+     // nom: ['', Validators.required],
       Idarticle: ['', Validators.required],
       quanityMax: ['', Validators.required],
     quanityMuni: ['', Validators.required],

@@ -7,6 +7,7 @@ import { ClientFournisseur } from 'src/app/core/models/client-fournisseur';
 import { ArticleService } from 'src/app/core/services/article.service';
 import { ClientFournisseurService } from 'src/app/core/services/client-fournisseur.service';
 import { CommandeService } from 'src/app/core/services/commande.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-commande-fournisseur',
@@ -37,7 +38,7 @@ breadCrumbItems: Array<{}>;
 
 
   constructor(private fournisseurservice:ClientFournisseurService, private router: Router,private fb: FormBuilder, private http: HttpClient, private commande:CommandeService, private articleservice:ArticleService) {
-    this.breadCrumbItems = [{ label: 'Nazox' }, { label: 'Commande', active: true }];
+    this.breadCrumbItems = [{ label: 'Wind' }, { label: 'Add Order', active: true }];
     this.commandeForm = this.fb.group({orderItems: this.fb.array([this.createOrderItemForm()]),
     });
    }
@@ -45,6 +46,15 @@ breadCrumbItems: Array<{}>;
   ngOnInit(): void {
     this.getAllarticle();
     this.getallFournisseur();
+  }
+  alert(){
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'Your work has been saved',
+      showConfirmButton: false,
+      timer: 1500
+    });
   }
 
     
@@ -119,12 +129,14 @@ saveCommande(): void {
         this.selectedArticless = [];
         this.quantities = [];
         this.router.navigate(['/tier/listcommandefounisseur']); 
+        this.alert();
       },
       error => {
         console.log("Error saving commande:", error);
         this.selectedArticless = [];
         this.quantities = [];
         this.router.navigate(['/tier/listcommandefounisseur']); 
+        this.alert();
       }
     );
 

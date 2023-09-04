@@ -40,7 +40,7 @@ articlee:any
    constructor(private modalService: NgbModal , private commandeservice:CommandeService, private mvtservice:MvtService, private factureservice:FactureService) { }
  
    ngOnInit(): void {
-     this.breadCrumbItems = [{ label: 'Nazox' }, { label: 'Commandes Founisseurs', active: true }];
+     this.breadCrumbItems = [{ label: 'Wind' }, { label: 'supplier orders', active: true }];
  
      this.getAllCommandesFournisseur();
    }
@@ -119,7 +119,7 @@ articlee:any
             }
           )
         
-        Swal.fire('Deleted!', 'company has been deleted.', 'success');
+        Swal.fire('Deleted!', 'Order has been deleted.', 'success');
         
       }
       

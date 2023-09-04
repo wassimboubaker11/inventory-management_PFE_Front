@@ -1,6 +1,6 @@
 
 <div class="container-fluid">
-    <app-pagetitle title="Commande" [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
+    <app-pagetitle title="Add Order" [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
   
     <div class="row">
       <div class="col-lg-12">
@@ -12,21 +12,21 @@
               <div style="display: flex;">
               <div style="width: 200px; margin-right: 20px;">            
                 <select  class="form-control select2"  (change)="getArticlebyid($event)" >
-                  <option value="">Select Article</option>
+                  <option value="">Select Product</option>
                   <option *ngFor="let article of articles" [value]="article.idarticle">{{ article.nom}}</option>                        
                 </select>               
               </div>  
   
               <div style="width: 200px; margin-right: 20px;">            
                 <select  class="form-control select2"  (change)="getIDclient($event.target.value)" >
-                  <option value="">Select Client</option>
+                  <option value="">Select Supplier</option>
                   <option *ngFor="let fournisseur of fournisseurs" [value]="fournisseur.idtier">{{fournisseur.nom}}</option>                        
                 </select>               
               </div>  
   
   
               <div class="form">
-                <input class="form-control" [(ngModel)]="nomcommande" name="nomcommande" placeholder="Enter Nom Commande" >
+                <input class="form-control" [(ngModel)]="nomcommande" name="nomcommande" placeholder="Enter Name Order" >
                 
                 </div>
             </div>

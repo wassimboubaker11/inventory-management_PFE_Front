@@ -59,11 +59,13 @@ export class LoginComponent implements OnInit {
         console.log(this.role);
         console.log(res);
 
-        if (this.role === 'ADMIN' || this.role === 'USER') {
+        if (this.role === 'ADMIN' ) {
           this.router.navigate(['/']);
           this.getAllAlerts();
         } else if (this.role === 'SUPER_ADMIN') {
           this.router.navigate(['/calendar']);
+        } else if ( this.role === 'USER'){
+          this.router.navigate(['/chat']);
         }
       },
       err => {

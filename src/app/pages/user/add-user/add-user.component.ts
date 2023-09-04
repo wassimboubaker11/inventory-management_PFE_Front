@@ -5,6 +5,7 @@ import { Admin } from 'src/app/account/auth/signup/admin';
 import { Gestionaire } from 'src/app/core/models/gestionaire';
 import { AdminService } from 'src/app/core/services/admin.service';
 import { GestionaireService } from 'src/app/core/services/gestionaire.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-user',
@@ -28,6 +29,8 @@ export class AddUserComponent implements OnInit {
   validationForm: FormGroup;
 
   submitted: boolean = false;
+
+  selectedPicture: any;
   
   constructor(private router: Router , private formBuilder: FormBuilder , private gestionaireservice:GestionaireService, private adminservice:AdminService) {
     this.validationForm = this.formBuilder.group({
@@ -51,7 +54,7 @@ export class AddUserComponent implements OnInit {
 
     
 
-    this.breadCrumbItems = [{ label: 'Nazox' }, { label: 'User', active: true }];
+    this.breadCrumbItems = [{ label: 'Wind' }, { label: 'Add stock manager', active: true }];
 
     this.getUserDATAFromToken();
 
@@ -65,8 +68,25 @@ export class AddUserComponent implements OnInit {
     console.log('Selected depot ID:', this.gestionaire.country);
   }
 
+  alert(){
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'Your work has been saved',
+      showConfirmButton: false,
+      timer: 1300
+    });
+  }
+
   selectpicture(e:any){
     this.photo = e.target.files[0];
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      this.selectedPicture = e.target.result;
+      
+    };
+    reader.readAsDataURL(file);
     console.log(this.photo)
   } 
 
@@ -87,7 +107,7 @@ export class AddUserComponent implements OnInit {
       this.validationForm.reset();
       this.submitted = false;
       this.router.navigate(['/user']); 
-      
+      this.alert();
     },
     err=>{
       console.log(err)

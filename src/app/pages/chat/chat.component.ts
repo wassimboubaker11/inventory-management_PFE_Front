@@ -61,7 +61,7 @@ export class ChatComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.breadCrumbItems = [{ label: 'Nazox' }, { label: 'Dépôt', active: true }];
+    this.breadCrumbItems = [{ label: 'Wind' }, { label: 'Depot', active: true }];
     this.getalldepot();
     };
 
@@ -100,6 +100,15 @@ export class ChatComponent implements OnInit {
         }
       )
     }
+    alert(){
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Your work has been saved',
+        showConfirmButton: false,
+        timer: 1300
+      });
+    }
 
     saveDepot() {
       this.submitted = true;
@@ -111,8 +120,8 @@ export class ChatComponent implements OnInit {
             this.ngOnInit();
             this.modalService.dismissAll();
             this.validationForm.reset();
-            
              this.submitted = false;
+             this.alert();
           },
           error => {
             console.log(error);
@@ -143,6 +152,7 @@ export class ChatComponent implements OnInit {
           this.ngOnInit();
           this.modalService.dismissAll();
           this.depot=new Depot();
+          this.alert();
         },
         err=>{
           console.log(err)

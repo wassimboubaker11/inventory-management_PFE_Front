@@ -27,4 +27,7 @@ return this.http.post<any>("http://localhost:8081/api/v1/user/register/"+idadmin
 deletegestionairebyid(idcategory:any){
   return this.http.delete<any>("http://localhost:8081/api/v1/user/deletegestionaire/"+idcategory)
 }
+getgestionaireById(idgestionaire:any){
+  return this.http.get<any>("http://localhost:8081/api/v1/user/getGestionaireById/"+idgestionaire);
+}
 }

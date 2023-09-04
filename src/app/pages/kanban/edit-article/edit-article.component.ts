@@ -25,7 +25,7 @@ export class EditArticleComponent implements OnInit {
   constructor(private router:Router , private formBuilder: FormBuilder, private act:ActivatedRoute , private articleservice:ArticleService) { }
 
   ngOnInit(): void {
-    this.breadCrumbItems = [{ label: 'Nazox' }, { label: 'Edit Article', active: true }];
+    this.breadCrumbItems = [{ label: 'Wind' }, { label: 'Edit Article', active: true }];
 
     bsCustomFileInput.init();
 

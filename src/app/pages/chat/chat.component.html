@@ -2,7 +2,7 @@
 
 
 <div class="container-fluid">
-  <app-pagetitle title="Dépôt" [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
+  <app-pagetitle title="Depot" [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
 
   <div class="row">
     <div class="col-lg-12">
@@ -115,7 +115,7 @@
   
 		  <div class="form">
 			<label>Number:</label>
-			<input class="form-control" type="number" [(ngModel)]="depot.numero" formControlName="numero" name="numero" placeholder="Enter number">
+			<input class="form-control" type="number" min="0" [(ngModel)]="depot.numero" formControlName="numero" name="numero" placeholder="Enter number">
 			<div *ngIf="validationForm.get('numero').invalid && (validationForm.get('numero').touched || submitted)" class="text-danger">
 				<div *ngIf="validationForm.get('numero').errors.required">
 					Number is required.

@@ -43,7 +43,7 @@ submitted: boolean = false;
 }
 
   ngOnInit(): void {
-    this.breadCrumbItems = [{ label: 'Nazox' }, { label: 'Clients', active: true }];
+    this.breadCrumbItems = [{ label: 'Wind' }, { label: 'Clients', active: true }];
     bsCustomFileInput.init();
     this.getAllClient();
   }
@@ -66,6 +66,15 @@ submitted: boolean = false;
           // Handle modal dismissal (if needed)
         }
       );
+    }
+    alert(){
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Your work has been saved',
+        showConfirmButton: false,
+        timer: 1500
+      });
     }
 
   getAllClient(){
@@ -135,7 +144,7 @@ submitted: boolean = false;
       responce=>{
         this.ngOnInit()
         this.modalService.dismissAll();
-        
+        this.alert();
         console.log(responce)
       },
       err=>{
@@ -174,7 +183,7 @@ submitted: boolean = false;
             }
           )
         
-        Swal.fire('Deleted!', 'Depot has been deleted.', 'success');
+        Swal.fire('Deleted!', 'Client has been deleted.', 'success');
         
       }
       

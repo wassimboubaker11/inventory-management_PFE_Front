@@ -30,7 +30,7 @@ category:Category=new Category();
   }
 
   ngOnInit(): void {
-    this.breadCrumbItems = [{ label: 'Nazox' }, { label: 'Catégorie', active: true }];
+    this.breadCrumbItems = [{ label: 'Wind' }, { label: 'Category', active: true }];
     this.getallcategory();
   }
 
@@ -51,6 +51,16 @@ category:Category=new Category();
           // Handle modal dismissal (if needed)
         }
       );
+    }
+
+    alert(){
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Your work has been saved',
+        showConfirmButton: false,
+        timer: 1300
+      });
     }
 
     openModall(content: any , idcategory:any) {
@@ -91,6 +101,7 @@ category:Category=new Category();
         this.validationForm.reset();
         
         this.submitted = false;
+        this.alert();
         },
         err=>{
           console.log(err)
@@ -114,6 +125,7 @@ category:Category=new Category();
           this.ngOnInit();
           this.modalService.dismissAll();
           this.category=new Category();
+          this.alert();
         },
         err=>{
           console.log(err)
@@ -140,7 +152,7 @@ category:Category=new Category();
             err=>{console.log(err)}
           )
           
-          Swal.fire('Deleted!', 'Depot has been deleted.', 'success');
+          Swal.fire('Deleted!', 'Category has been deleted.', 'success');
           
         }
         

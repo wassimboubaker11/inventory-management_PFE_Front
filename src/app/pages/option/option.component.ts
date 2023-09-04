@@ -32,7 +32,7 @@ export class OptionComponent implements OnInit {
 }
 
   ngOnInit(): void {
-    this.breadCrumbItems = [{ label: 'Nazox' }, { label: 'Option', active: true }];
+    this.breadCrumbItems = [{ label: 'Wind' }, { label: 'Option', active: true }];
     this.getalloption();
 
     
@@ -56,6 +56,16 @@ export class OptionComponent implements OnInit {
       }
     );
   }
+
+  alert(){
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'Your work has been saved',
+      showConfirmButton: false,
+      timer: 1300
+    });
+  }
   saveOption(){
     this.submitted = true;
     if (this.validationForm.valid) {
@@ -66,7 +76,7 @@ export class OptionComponent implements OnInit {
         this.modalService.dismissAll();
         this.validationForm.reset();
         this.submitted = false;
-         
+         this.alert();
       },
       err=>{console.log(err)}
     )
@@ -111,7 +121,7 @@ export class OptionComponent implements OnInit {
           err=>{console.log(err)}
         )
         
-        Swal.fire('Deleted!', 'Depot has been deleted.', 'success');
+        Swal.fire('Deleted!', 'Option has been deleted.', 'success');
         
       }
       

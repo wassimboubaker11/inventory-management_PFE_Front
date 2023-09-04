@@ -31,11 +31,21 @@ export class CalendarComponent implements OnInit {
   
 
   ngOnInit() {
-    this.breadCrumbItems = [{ label: 'Nazox' }, { label: 'Companies', active: true }];
+    this.breadCrumbItems = [{ label: 'Wind' }, { label: 'Companies', active: true }];
     
     this.getalladmin();
 
     
+  }
+
+  alert(){
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'compte activated and mail send',
+      showConfirmButton: false,
+      timer: 1300
+    });
   }
 
   getalladmin(){
@@ -52,20 +62,33 @@ export class CalendarComponent implements OnInit {
   }
 
   activeadmin(id:any , admin:any ){
-
+    if (admin.valide) {
       this.adminservice.valideadmin(id , admin).subscribe(
         
       responce=>{
         console.log(responce)
+        this.alert();
         this.ngOnInit();
+
         
       },
       err=>{
         console.log(err)
       }
-    )
+    );
+  } else { this.adminservice.valideadmin(id , admin).subscribe(
+        
+    responce=>{
+      console.log(responce)
+      this.ngOnInit();
+      
+    },
+    err=>{
+      console.log(err)
+    }
+  );
+}
   }
-
   deleteadmin(id:any){
     this.adminservice.deleteadmin(id).subscribe(
         

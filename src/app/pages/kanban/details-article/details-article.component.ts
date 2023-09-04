@@ -47,7 +47,7 @@ maxQuantity: number;
    }
 
   ngOnInit(): void {
-    this.breadCrumbItems = [{ label: 'Nazox' }, { label: 'Details', active: true }];
+    this.breadCrumbItems = [{ label: 'Wind' }, { label: 'Details', active: true }];
 
     this.idarticle = this.route.snapshot.params['id'];
      console.log(this.idarticle);
@@ -55,6 +55,16 @@ maxQuantity: number;
      this.getarticlebyid();
      this.getvariantbyidarticle();
 
+  }
+
+  alert(){
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'Your work has been saved',
+      showConfirmButton: false,
+      timer: 1300
+    });
   }
 
 
@@ -116,6 +126,7 @@ maxQuantity: number;
       }
     )
   }
+  
 
   savevariant(){
     this.submitted = true;
@@ -133,6 +144,7 @@ maxQuantity: number;
         this.nomvariant=null;
         this.validationForm.reset();
         this.submitted = false;
+        this.alert();
       },
       err=>{
         console.log(err)

@@ -45,7 +45,7 @@ submitted: boolean = false;
   }
 
   ngOnInit(): void {
-    this.breadCrumbItems = [{ label: 'Nazox' }, { label: 'Fournisseurs', active: true }];
+    this.breadCrumbItems = [{ label: 'Wind' }, { label: 'Suppliers', active: true }];
     bsCustomFileInput.init();
     this.getAllFournisseur()
   }
@@ -74,6 +74,16 @@ submitted: boolean = false;
   modalCloseClick() {
     this.submitted = false;
     this.validationForm.reset();
+  }
+
+  alert(){
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'Your work has been saved',
+      showConfirmButton: false,
+      timer: 1500
+    });
   }
 
     getAllFournisseur(){
@@ -139,7 +149,7 @@ submitted: boolean = false;
       responce=>{
         this.ngOnInit()
         this.modalService.dismissAll();
-        
+        this.alert();
         console.log(responce)
       },
       err=>{
@@ -196,7 +206,7 @@ submitted: boolean = false;
             }
           )
         
-        Swal.fire('Deleted!', 'Depot has been deleted.', 'success');
+        Swal.fire('Deleted!', 'Supplier has been deleted.', 'success');
         
       }
       
